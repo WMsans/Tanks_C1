@@ -55,5 +55,4 @@ public class TankMove : MonoBehaviour
     {
         moveVal = value.Get<float>();
     }
-
 }

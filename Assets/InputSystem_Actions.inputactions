@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TankAim",
+                    "type": "Value",
+                    "id": "887d5aa3-14cb-4171-9ed9-ebd5b8983267",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -556,6 +565,17 @@
                     "action": "TankRotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "dbd3b17f-c1da-433c-bc48-fda7c08f5cb5",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TankAim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

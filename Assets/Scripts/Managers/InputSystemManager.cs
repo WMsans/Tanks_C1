@@ -42,7 +42,6 @@ public class InputSystemManager : MonoSingleton<InputSystemManager>
     private void Update()
     {
         HandleCharacterInput();
-        Debug.Log(CurrentInputInfo.MousePosition);
     }
 
     private void HandleCharacterInput()

@@ -5,33 +5,34 @@ using UnityEngine;
 
 public class StateMachineRunner : MonoBehaviour
 {
-    [SerializeField]private BaseState initialState;
+    [SerializeField] private BaseState initialState;
     public BaseState CurrentState { get; private set; }
-    public void ChangeState(BaseState next)
+    public virtual void ChangeState(BaseState next)
     {
+        if(!next) return;
         CurrentState?.OnExitState();
         CurrentState = next;
         CurrentState.SetOwner(this);
         CurrentState.OnEnterState();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         ChangeState(initialState);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        CurrentState.OnUpdateState();
+        CurrentState?.OnUpdateState();
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        CurrentState.OnFixedUpdateState();
+        CurrentState?.OnFixedUpdateState();
     }
 
-    private void LateUpdate()
+    protected virtual void LateUpdate()
     {
-        CurrentState.OnLateUpdateState();
+        CurrentState?.OnLateUpdateState();
     }
 }

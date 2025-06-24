@@ -56,7 +56,8 @@ public class BulletBehaviour : MonoBehaviour
     private void OnExplode()
     {
         EffectManager.instance.PlayExplosion(transform.position);
-        Destroy(gameObject);
+        rb.linearVelocity = rb.angularVelocity = Vector3.zero;
+        gameObject.SetActive(false);
         return;
     }
 }

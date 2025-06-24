@@ -8,7 +8,7 @@ public abstract class TankBaseState : BaseState
     protected Rigidbody rb { get; private set; }
     protected InputSystemManager.InputInfo inputInfo { get; private set; }
 
-    protected void Awake()
+    public override void OnEnterState()
     {
         rb = Owner.GetComponent<Rigidbody>();
     }

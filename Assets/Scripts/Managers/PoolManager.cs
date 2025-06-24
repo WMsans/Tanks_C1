@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -25,39 +26,51 @@ public class PoolManager : MonoBehaviour
             {
                 // destroy this one
                 Destroy(gameObject);
+                return;
             }
         }
     }
 
-    // Projectiles to create and the pools to hold each type of projectile
-    [SerializeField] GameObject rocketProjectile;
-    private List<GameObject> rocketPool = new List<GameObject>();
+    private Dictionary<GameObject, List<GameObject>> _pool = new();
+    private Dictionary<GameObject, int> _poolLength = new();
 
     /// <summary>
-    /// Initial the pool.
-    /// </summary>
-    void Start()
-    {
-
-    }
-
-    /// <summary>
-    /// Creates the object pool by instantiating objects and placing them into the container.
-    /// </summary>
-    /// <param name="obj">The object to be spawned.</param>
-    /// <param name="pool">The container for the pooled objects.</param>
-    /// <param name="count">The number of objects to include in the pool.</param>
-    public void CreateObjectPool(GameObject obj, List<GameObject> pool, int count)
-    {
-        
-    }
-
-    /// <summary>
-    /// Get a bullet from the pool if one is available.
+    /// Get an object from the pool if one is available.
     /// </summary>
     /// <returns>Return a bullet if one is available; otherwise, return null.</returns>
-    public GameObject GetRocket()
+    public GameObject GetPooledObject(GameObject prefab)
     {
-        return null; // Placeholder makes compiler happy. 
+        if (_pool.TryGetValue(prefab, out var objectList))
+        {
+            var availableObject = objectList.FirstOrDefault(x => !x.activeSelf);
+            if (!availableObject)
+            {
+                FillNewPrefab(prefab, objectList, _poolLength[prefab] - 1);
+                availableObject = InstantiateNewPrefab(prefab, objectList);
+                _poolLength[prefab] *= 2;
+            }
+            return availableObject;
+        }
+
+        objectList = new List<GameObject>();
+        _pool.Add(prefab, objectList);
+        _poolLength.Add(prefab, 1);
+        return InstantiateNewPrefab(prefab, objectList);
+    }
+
+    private GameObject InstantiateNewPrefab(GameObject prefab, List<GameObject> objectList)
+    {
+        var obj = Instantiate(prefab);
+        obj.SetActive(false);
+        objectList.Add(obj);
+        return obj;
+    }
+
+    private void FillNewPrefab(GameObject prefab, List<GameObject> objectList, int count)
+    {
+        for (int i = 1; i <= count; i++)
+        {
+            InstantiateNewPrefab(prefab, objectList);
+        }
     }
 }

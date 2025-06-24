@@ -10,7 +10,7 @@ public abstract class TankBaseState : BaseState
 
     protected void Awake()
     {
-        rb = transform.parent.GetComponent<Rigidbody>();
+        rb = Owner.GetComponent<Rigidbody>();
     }
 
     protected void Update()

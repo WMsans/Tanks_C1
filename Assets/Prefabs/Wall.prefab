@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7347999046461906414}
   - component: {fileID: 4383156096362951950}
   - component: {fileID: 660541687137051084}
+  - component: {fileID: 3462021877502278269}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -94,7 +95,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2480509890369863730}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68f31a12b5dd5a449954bd583bae9a7f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -108,3 +109,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3462021877502278269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480509890369863730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9fdc746b94cc740a142ec5fa139541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  deathParticlePrefab: {fileID: 1212543206346105570, guid: 6941706604c7cbc4cafad992b8bc2208, type: 3}

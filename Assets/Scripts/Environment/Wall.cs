@@ -6,17 +6,17 @@ using UnityEngine;
 public class Wall : MonoBehaviour, IDamageable
 {
     // The amount of health that this wall has.
-    [SerializeField] private int health = 2;
+    [SerializeField] private float health = 2;
 
     // Health property
-    public int Health { get => health; set => health = value; }
+    public float Health { get => health; set => health = value; }
 
     /// <summary>
     /// Implementation of the OnHit method inherited from IDamageable.
     /// </summary>
     /// <param name="damage">Damage caused by the caller.</param>
     /// <returns>Returns true if the wall is destroyed after receiving damage.</returns>
-    public bool OnHit(int damage)
+    public bool OnHit(float damage)
     {
         Health -= damage;
         if (Health <= 0)

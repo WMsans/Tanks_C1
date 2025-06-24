@@ -4,6 +4,6 @@
 /// </summary>
 public interface IDamageable
 {
-    public int Health { get; set; }
-    public bool OnHit(int damage);
+    public float Health { get; set; }
+    public bool OnHit(float damage);
 }

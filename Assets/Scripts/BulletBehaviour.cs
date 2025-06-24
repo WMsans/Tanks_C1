@@ -7,7 +7,7 @@ using UnityEngine;
 /// It deals damage by interacting with objects that implement the IDamageable interface.
 /// If all bounces are used, it will also damage a wall on the final impact.
 /// </summary>
-public class BulletBehaviour : MonoBehaviour
+public class BulletBehaviour : MonoBehaviour, IPoolable
 {
     private Rigidbody rb;
     public int sourceID;
@@ -15,6 +15,7 @@ public class BulletBehaviour : MonoBehaviour
     public int bouncesRemaining = 1;
     public int damage = 1;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask enemyLayer;
 
     void Awake()
     {
@@ -28,18 +29,22 @@ public class BulletBehaviour : MonoBehaviour
     /// <param name="other"></param>
     void OnCollisionEnter(Collision other)
     {
-        if (((1 << other.gameObject.layer) & wallLayer) != 0)
+        if (((1 << other.gameObject.layer) & enemyLayer) != 0)
         {
-            HandleHit(other);
+            HandleHit(other, Mathf.Infinity);
+        }else if (((1 << other.gameObject.layer) & wallLayer) != 0)
+        {
+            HandleHit(other, damage);
         }
+        
     }
 
-    private void HandleHit(Collision other)
+    private void HandleHit(Collision other, float hitDamage)
     {
         // Handle damage
         if (other.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
-            if (damageable.OnHit(damage))
+            if (damageable.OnHit(hitDamage))
             {
                 OnExplode();
                 return;
@@ -56,9 +61,14 @@ public class BulletBehaviour : MonoBehaviour
     private void OnExplode()
     {
         EffectManager.instance.PlayExplosion(transform.position);
-        rb.linearVelocity = rb.angularVelocity = Vector3.zero;
         gameObject.SetActive(false);
         return;
+    }
+
+    public void InitializeVariables()
+    {
+        rb.linearVelocity = rb.angularVelocity = Vector3.zero;
+        hasBounced = false;
     }
 }
 

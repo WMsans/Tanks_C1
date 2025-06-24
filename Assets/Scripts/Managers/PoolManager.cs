@@ -49,6 +49,12 @@ public class PoolManager : MonoBehaviour
                 availableObject = InstantiateNewPrefab(prefab, objectList);
                 _poolLength[prefab] *= 2;
             }
+
+            var poolableBehaviors = availableObject.GetComponentsInChildren<IPoolable>();
+            foreach (var t in poolableBehaviors)
+            {
+                t.InitializeVariables();
+            }
             return availableObject;
         }
 

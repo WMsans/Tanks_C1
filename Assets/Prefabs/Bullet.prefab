@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980256389041246415}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5760937, y: 1.6150132, z: 5.3771915}
+  m_LocalRotation: {x: 0.000000027771623, y: -0.063316815, z: -0.000000010294583, w: 0.99799347}
+  m_LocalPosition: {x: 2.2279923, y: 1.6459504, z: 14.91584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -151,10 +151,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sourceID: 0
   hasBounced: 0
-  speed: 15
   bouncesRemaining: 1
   damage: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  explosion: {fileID: 1212543206346105570, guid: 9b5a67dba457d154a8917a204534fa4e, type: 3}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64

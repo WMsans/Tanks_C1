@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemyDodgeState : EnemyBaseState
 {
@@ -8,18 +7,16 @@ public class EnemyDodgeState : EnemyBaseState
 
     [Header("Dodge Parameters")]
     [SerializeField] private LayerMask bulletLayer;
-    [SerializeField] private LayerMask obstacleLayer; // Assign walls, etc. to this layer
+    [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private float dodgeSpeed = 8f;
-    [SerializeField] private float dodgePredictionTime = 0.5f; // How far in the future to predict bullet positions
-    [SerializeField] private float dodgeSafetyMargin = 1.5f; // How far to stay away from a predicted bullet path
-    [SerializeField] private int dodgeDirectionSamples = 16; // Number of directions to check for a safe spot
+    [SerializeField] private float sightRadius = 15f;
 
     [Header("Movement")]
     [SerializeField] private float rotSpeed = 5f;
     [SerializeField] private float rotAccel = 0.2f;
     [SerializeField] private float moveAccel = 0.2f;
 
-    private Vector3 _dodgeTargetPosition;
+    private Vector3 _dodgeDirection;
     private float _rotVal;
 
     public override void OnEnterState()
@@ -29,28 +26,74 @@ public class EnemyDodgeState : EnemyBaseState
         var incomingBullet = FindIncomingBullet();
         if (incomingBullet != null)
         {
-            if (FindSafeDodgePosition(incomingBullet, out _dodgeTargetPosition))
+            var bulletRb = incomingBullet.GetComponent<Rigidbody>();
+            if (bulletRb != null && bulletRb.linearVelocity.sqrMagnitude > 0.1f)
             {
-                Debug.Log("Found safe dodge position. Dodging!");
+                var bulletVelocityNorm = bulletRb.linearVelocity.normalized;
+
+                // --- Start of Updated Logic ---
+
+                // 1. Calculate the two perpendicular dodge directions (left and right relative to the bullet's velocity)
+                var dodgeRight = Vector3.Cross(bulletVelocityNorm, Vector3.up).normalized;
+                var dodgeLeft = -dodgeRight;
+
+                // 2. Determine if the enemy is on the left or right side of the bullet's path
+                var vectorToEnemy = transform.position - incomingBullet.transform.position;
+                // By getting the dot product with the "right" vector, we can determine the side.
+                // A positive result means the enemy is more to the right, negative means more to the left.
+                var side = Vector3.Dot(dodgeRight, vectorToEnemy);
+
+                // 3. Check if the paths in those directions are clear of obstacles
+                var isPathRightClear = !Physics.Raycast(transform.position, dodgeRight, 3f, obstacleLayer);
+                var isPathLeftClear = !Physics.Raycast(transform.position, dodgeLeft, 3f, obstacleLayer);
+
+                // 4. Decide on the best dodge direction
+                bool dodged = false;
+                if (side > 0) // The enemy is on the right side of the bullet
+                {
+                    if (isPathRightClear)
+                    {
+                        _dodgeDirection = dodgeRight;
+                        dodged = true;
+                    }
+                    else if (isPathLeftClear) // Try the other side if the preferred one is blocked
+                    {
+                        _dodgeDirection = dodgeLeft;
+                        dodged = true;
+                    }
+                }
+                else // The enemy is on the left side or directly in front
+                {
+                    if (isPathLeftClear)
+                    {
+                        _dodgeDirection = dodgeLeft;
+                        dodged = true;
+                    }
+                    else if (isPathRightClear) // Try the other side if the preferred one is blocked
+                    {
+                        _dodgeDirection = dodgeRight;
+                        dodged = true;
+                    }
+                }
+
+                // If both paths are blocked, use the fallback behavior (dodge directly away from bullet)
+                if (!dodged)
+                {
+                    _dodgeDirection = (transform.position - incomingBullet.transform.position).normalized;
+                }
+
+                // --- End of Updated Logic ---
             }
             else
             {
-                // Fallback: If no perfectly safe spot is found, dodge perpendicular to the bullet's path
-                var bulletRb = incomingBullet.GetComponent<Rigidbody>();
-                Vector3 perpendicularDodge = Vector3.Cross(bulletRb.linearVelocity.normalized, Vector3.up);
-                
-                // Check which perpendicular direction is clearer of obstacles
-                if (Physics.Raycast(transform.position, perpendicularDodge, 2f, obstacleLayer))
-                {
-                    perpendicularDodge = -perpendicularDodge; // Try the other way
-                }
-                _dodgeTargetPosition = transform.position + perpendicularDodge * 3f; // Dodge 3 units
-                Debug.LogWarning("No ideal safe spot found. Executing emergency dodge.");
+                // Fallback if the bullet has no Rigidbody or is not moving
+                Owner.ChangeState(followState);
+                return;
             }
         }
         else
         {
-            // No immediate threat, return to follow state
+            // If no bullet is found, no need to dodge
             Owner.ChangeState(followState);
             return;
         }
@@ -58,16 +101,15 @@ public class EnemyDodgeState : EnemyBaseState
 
     public override void OnUpdateState()
     {
-        // If we have reached our dodge position, or if the danger has passed, switch state
-        if (Vector3.Distance(transform.position, _dodgeTargetPosition) < 0.5f || !IsBulletClose())
+        // If no more bullets are nearby, stop dodging
+        if (!IsBulletClose())
         {
             Owner.ChangeState(followState);
             return;
         }
 
-        // Determine rotation direction towards the dodge target
-        Vector3 directionToTarget = (_dodgeTargetPosition - transform.position).normalized;
-        float sign = Vector3.Dot(transform.right, directionToTarget);
+        // Determine rotation direction based on the chosen dodge direction
+        var sign = Vector3.Dot(transform.right, _dodgeDirection);
 
         _rotVal = sign switch
         {
@@ -79,82 +121,46 @@ public class EnemyDodgeState : EnemyBaseState
 
     public override void OnFixedUpdateState()
     {
+        // Apply rotation and movement
         HandleRotation(rotSpeed, rotAccel, _rotVal);
-
-        // Move forward as we rotate towards the target direction
         HandlePosition(dodgeSpeed, moveAccel, 1f);
     }
 
+    /// <summary>
+    /// Finds the most threatening incoming bullet within the sight radius.
+    /// </summary>
     private GameObject FindIncomingBullet()
     {
-        var colliders = Physics.OverlapSphere(transform.position, 15f, bulletLayer, QueryTriggerInteraction.Ignore);
+        var colliders = Physics.OverlapSphere(transform.position, sightRadius, bulletLayer, QueryTriggerInteraction.Ignore);
         GameObject closestThreat = null;
-        float closestTimeOfImpact = float.MaxValue;
+        var closestDistSqr = float.MaxValue;
 
         foreach (var bulletCollider in colliders)
         {
             var bulletRb = bulletCollider.GetComponent<Rigidbody>();
+            // Ensure the bullet has a rigidbody and is actually moving
             if (bulletRb == null || bulletRb.linearVelocity.sqrMagnitude < 0.1f) continue;
 
-            Vector3 bulletVel = bulletRb.linearVelocity;
-            Vector3 relativePos = transform.position - bulletCollider.transform.position;
-            
-            // Only consider bullets moving towards us
-            if (Vector3.Dot(relativePos, bulletVel) < 0) continue;
-
-            // Calculate time of impact (a simplified approach)
-            float timeToImpact = relativePos.magnitude / bulletVel.magnitude;
-
-            if (timeToImpact < closestTimeOfImpact)
+            var toEnemy = (transform.position - bulletCollider.transform.position).normalized;
+            // Check if the bullet is generally heading towards the enemy
+            if (Vector3.Dot(bulletRb.linearVelocity.normalized, toEnemy) > 0.5f)
             {
-                closestTimeOfImpact = timeToImpact;
-                closestThreat = bulletCollider.gameObject;
+                var distSqr = (bulletCollider.transform.position - transform.position).sqrMagnitude;
+                if (distSqr < closestDistSqr)
+                {
+                    closestDistSqr = distSqr;
+                    closestThreat = bulletCollider.gameObject;
+                }
             }
         }
         return closestThreat;
     }
 
-    private bool FindSafeDodgePosition(GameObject bullet, out Vector3 safePosition)
-    {
-        var bulletRb = bullet.GetComponent<Rigidbody>();
-        if (bulletRb == null)
-        {
-            safePosition = Vector3.zero;
-            return false;
-        }
-        
-        // Sample points in a circle around the enemy and evaluate their safety
-        for (int i = 0; i < dodgeDirectionSamples; i++)
-        {
-            float angle = i * (360f / dodgeDirectionSamples);
-            Vector3 dir = Quaternion.Euler(0, angle, 0) * transform.forward;
-            float distance = dodgeSpeed * dodgePredictionTime; // Dodge distance based on speed and prediction
-            Vector3 potentialPosition = transform.position + dir * distance;
-
-            // 1. Check if the path to the position is clear of obstacles
-            if (Physics.Raycast(transform.position, dir, distance, obstacleLayer))
-            {
-                continue; // Path is blocked
-            }
-
-            // 2. Predict the bullet's future position
-            Vector3 bulletFuturePos = bullet.transform.position + bulletRb.linearVelocity * dodgePredictionTime;
-
-            // 3. Check if our potential position is far enough from the bullet's future position
-            if (Vector3.Distance(potentialPosition, bulletFuturePos) > dodgeSafetyMargin)
-            {
-                safePosition = potentialPosition;
-                return true;
-            }
-        }
-
-        safePosition = Vector3.zero;
-        return false;
-    }
-
+    /// <summary>
+    /// Checks if any bullets are within the sight radius.
+    /// </summary>
     private bool IsBulletClose()
     {
-        // This remains a good general check for whether to even consider dodging
-        return Physics.CheckSphere(transform.position, 15f, bulletLayer, QueryTriggerInteraction.Ignore);
+        return Physics.CheckSphere(transform.position, sightRadius, bulletLayer, QueryTriggerInteraction.Ignore);
     }
 }

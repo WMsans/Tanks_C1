@@ -8,6 +8,7 @@ public class EnemyFireState : EnemyBaseState
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] private float sightRadius = 5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask bulletLayer;
@@ -87,6 +88,6 @@ public class EnemyFireState : EnemyBaseState
 
     private bool IsBulletClose()
     {
-        return Physics.CheckSphere(transform.position, 10f, bulletLayer, QueryTriggerInteraction.Ignore);
+        return Physics.CheckSphere(transform.position, sightRadius, bulletLayer, QueryTriggerInteraction.Ignore);
     }
 }

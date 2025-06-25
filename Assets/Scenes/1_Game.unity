@@ -1773,7 +1773,7 @@ MonoBehaviour:
   shootPoint: {fileID: 249544794}
   bulletPrefab: {fileID: 1980256389041246415, guid: fe428c0c15dd07a4abd5931bbd3b74fb, type: 3}
   coolDown: 0
-  firePower: 3
+  firePower: 10
 --- !u!1 &1500674425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,7 +2269,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 30872612849058602, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
       propertyPath: dodgeSpeed
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 30872612849058602, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+      propertyPath: sightRadius
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 172443807332710938, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
       propertyPath: m_LocalPosition.x

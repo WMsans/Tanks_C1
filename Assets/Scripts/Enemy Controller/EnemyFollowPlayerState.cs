@@ -9,6 +9,7 @@ public class EnemyFollowPlayerState : EnemyBaseState
     [SerializeField] private float rotSpeed;
     [SerializeField] private float moveAccel;
     [SerializeField] private float rotAccel;
+    [SerializeField] private float sightRadius = 5f;
     [SerializeField] private Transform topRoot;
     [SerializeField] private float shootingRange = 10f;
     [SerializeField] private EnemyFireState fireState;
@@ -91,6 +92,6 @@ public class EnemyFollowPlayerState : EnemyBaseState
 
     private bool IsBulletClose()
     {
-        return Physics.CheckSphere(transform.position, 10f, bulletLayer);
+        return Physics.CheckSphere(transform.position, sightRadius, bulletLayer);
     }
 }

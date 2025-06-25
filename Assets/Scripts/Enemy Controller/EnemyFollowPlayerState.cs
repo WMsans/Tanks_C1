@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyNormalState : EnemyBaseState
+public class EnemyFollowPlayerState : EnemyBaseState
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotSpeed;
@@ -25,19 +25,13 @@ public class EnemyNormalState : EnemyBaseState
     {
         if (NavMesh.CalculatePath(rb.position, _player.position, NavMesh.AllAreas, _path))
         {
-            float sign = Vector3.Dot(transform.right, _path.corners[1] - transform.position);
-            if (sign < -0.01f)
+            var sign = Vector3.Dot(transform.right, _path.corners[1] - transform.position);
+            _rotVal = sign switch
             {
-                _rotVal = -1f;
-            }
-            else if (sign > 0.01f)
-            {
-                _rotVal = 1f;
-            }
-            else
-            {
-                _rotVal = 0f;
-            }
+                < -0.01f => -1f,
+                > 0.01f => 1f,
+                _ => 0f
+            };
 
             _moveVal = Mathf.Abs(sign) < .75f ? 1f : 0f;
         }

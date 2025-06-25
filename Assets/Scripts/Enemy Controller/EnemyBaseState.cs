@@ -26,6 +26,6 @@ public abstract class EnemyBaseState : BaseState
 
     protected void HandleAiming(Transform topRoot, Vector3 lookPosition)
     {
-        topRoot.rotation = Quaternion.LookRotation(topRoot.position - lookPosition);
+        topRoot.rotation = Quaternion.LookRotation(lookPosition - topRoot.position);
     }
 }

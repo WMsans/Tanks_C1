@@ -8,7 +8,7 @@ public class EnemySpawner : MonoSingleton<EnemySpawner>
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private ArenaPointSampler sampler;
 
-    private void Start()
+    private void OnEnable()
     {
         SpawnTankInArena();
     }

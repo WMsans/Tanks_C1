@@ -693,6 +693,7 @@ GameObject:
   - component: {fileID: 331005709}
   - component: {fileID: 331005708}
   - component: {fileID: 331005707}
+  - component: {fileID: 331005711}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -790,6 +791,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331005711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331005706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 25
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.6666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 8416f75accc9b0a43b8aed505d09e1c2, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625413570533470339, guid: ea158e5b6d7554b45a65c66689498d62, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12.60258
+      value: 15.8514
       objectReference: {fileID: 0}
     - target: {fileID: 3625413570533470339, guid: ea158e5b6d7554b45a65c66689498d62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1359,6 +1392,7 @@ GameObject:
   - component: {fileID: 880232472}
   - component: {fileID: 880232471}
   - component: {fileID: 880232473}
+  - component: {fileID: 880232474}
   m_Layer: 6
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -1424,6 +1458,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
+--- !u!114 &880232474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880232470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f738ab79ddc472786f24fa1fa8c71f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialState: {fileID: 1729110895}
 --- !u!1001 &1092967188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2023,7 +2070,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7b113c11b52dec645be5f0ab9ba8879c, type: 2}
+  - {fileID: 2100000, guid: cd8b73f5f7c1e3546b61dcb81004abf0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2170,6 +2217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1729110894}
+  - component: {fileID: 1729110895}
   m_Layer: 6
   m_Name: States
   m_TagString: Untagged
@@ -2192,6 +2240,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 880232472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729110895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729110893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7ce98c4de6443d9e3ea3ea7a762d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  rotSpeed: 2
+  moveAccel: 1
+  rotAccel: 1
+  topRoot: {fileID: 0}
 --- !u!1001 &1820376903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2549,7 +2614,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074692537}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335a6371ac0a452cb44b121bdf0411fb, type: 3}
   m_Name: 

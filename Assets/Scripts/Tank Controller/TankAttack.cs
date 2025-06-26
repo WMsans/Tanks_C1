@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 
-public class TankAttack : MonoBehaviour
+public class TankAttack : MonoBehaviour, ITankAttack
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float coolDown;
     [SerializeField] private float firePower;
     private float _lastShootTime;
-    private void OnAttack()
+    public float LastAttackTime => _lastShootTime;
+
+    public void OnAttack()
     {
         _lastShootTime = Time.time;
         //var bulletObject = Instantiate(bulletPrefab);
@@ -19,26 +20,5 @@ public class TankAttack : MonoBehaviour
         var bulletRb = bulletObject.GetComponent<Rigidbody>();
         bulletRb.AddForce(firePower * bulletObject.transform.forward, ForceMode.Impulse);
         EffectManager.instance.PlayBulletSpark(shootPoint.position);
-    }
-
-    private void Update()
-    {
-        HandleAttack();
-    }
-
-    private void HandleAttack()
-    {
-        if (InputSystemManager.Instance.CurrentInputInfo.AttackDown)
-        {
-            if (CanShoot())
-            {
-                OnAttack();
-            }
-        }
-    }
-
-    private bool CanShoot()
-    {
-        return Time.time - _lastShootTime > coolDown;
     }
 }

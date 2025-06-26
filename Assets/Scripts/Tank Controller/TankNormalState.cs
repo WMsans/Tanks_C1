@@ -11,6 +11,8 @@ public class TankNormalState : TankBaseState
     [SerializeField] private float rotAccel;
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
+
+    [SerializeField] private float cooldown;
     private float _currentRotationSpeed = 0f;
     public override void OnFixedUpdateState()
     {
@@ -45,5 +47,24 @@ public class TankNormalState : TankBaseState
                 topRoot.rotation = Quaternion.LookRotation(directionToFace);
             }
         }
+    }
+
+    public override void OnUpdateState()
+    {
+        HandleAttack();
+    }
+    private void HandleAttack()
+    {
+        if (InputSystemManager.Instance.CurrentInputInfo.AttackDown)
+        {
+            if (CanShoot())
+            {
+                tankAttack.OnAttack();
+            }
+        }
+    }
+    private bool CanShoot()
+    {
+        return Time.time - tankAttack.LastAttackTime > cooldown;
     }
 }

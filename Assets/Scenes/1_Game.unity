@@ -1067,11 +1067,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b54a98fc4a4460b1422685e1c2eec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotSpeed: 2
-  moveAccel: 1
-  rotAccel: 1
+  config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
   topRoot: {fileID: 288866550}
+  cooldown: 0
 --- !u!4 &745588589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625413570533470339, guid: ea158e5b6d7554b45a65c66689498d62, type: 3}
@@ -1772,7 +1770,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPoint: {fileID: 249544794}
   bulletPrefab: {fileID: 1980256389041246415, guid: fe428c0c15dd07a4abd5931bbd3b74fb, type: 3}
-  coolDown: 0
   firePower: 10
 --- !u!1 &1500674425
 GameObject:
@@ -2267,14 +2264,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 30872612849058602, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
-      propertyPath: dodgeSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 30872612849058602, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
-      propertyPath: sightRadius
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 172443807332710938, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.82

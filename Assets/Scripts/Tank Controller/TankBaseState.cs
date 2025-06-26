@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class TankBaseState : BaseState
 {
+    [SerializeField] protected TankConfig config;
     protected Rigidbody rb { get; private set; }
     protected InputSystemManager.InputInfo inputInfo { get; private set; }
     protected ITankAttack tankAttack { get; private set; }

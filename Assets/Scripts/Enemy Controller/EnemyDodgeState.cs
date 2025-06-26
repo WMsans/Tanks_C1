@@ -8,13 +8,7 @@ public class EnemyDodgeState : EnemyBaseState
     [Header("Dodge Parameters")]
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private LayerMask obstacleLayer;
-    [SerializeField] private float dodgeSpeed = 8f;
     [SerializeField] private float sightRadius = 15f;
-
-    [Header("Movement")]
-    [SerializeField] private float rotSpeed = 5f;
-    [SerializeField] private float rotAccel = 0.2f;
-    [SerializeField] private float moveAccel = 0.2f;
 
     private Vector3 _dodgeDirection;
     private float _rotVal;
@@ -111,9 +105,8 @@ public class EnemyDodgeState : EnemyBaseState
 
     public override void OnFixedUpdateState()
     {
-
-        HandleRotation(rotSpeed, rotAccel, _rotVal);
-        HandlePosition(dodgeSpeed, moveAccel, 1f);
+        HandleRotation(config.rotSpeed, config.rotAccel, _rotVal);
+        HandlePosition(config.moveSpeed, config.moveAccel, 1f);
     }
 
     private GameObject FindIncomingBullet()

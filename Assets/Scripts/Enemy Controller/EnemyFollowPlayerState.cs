@@ -5,10 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyFollowPlayerState : EnemyBaseState
 {
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float rotSpeed;
-    [SerializeField] private float moveAccel;
-    [SerializeField] private float rotAccel;
     [SerializeField] private float sightRadius = 5f;
     [SerializeField] private Transform topRoot;
     [SerializeField] private float shootingRange = 10f;
@@ -85,8 +81,8 @@ public class EnemyFollowPlayerState : EnemyBaseState
 
     public override void OnFixedUpdateState()
     {
-        HandlePosition(moveSpeed, moveAccel, _moveVal);
-        HandleRotation(rotSpeed, rotAccel, _rotVal);
+        HandlePosition(config.moveSpeed, config.moveAccel, _moveVal);
+        HandleRotation(config.rotSpeed, config.rotAccel, _rotVal);
         HandleAiming(topRoot, _player.position);
     }
 

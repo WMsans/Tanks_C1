@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public abstract class EnemyBaseState : BaseState
 {
+    [SerializeField] protected TankConfig config;
     protected Rigidbody rb { get; private set; }
 
     private float _currentRotationSpeed;

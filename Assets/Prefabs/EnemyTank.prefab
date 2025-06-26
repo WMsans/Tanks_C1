@@ -46,10 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7ce98c4de6443d9e3ea3ea7a762d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  rotSpeed: 2
-  moveAccel: 1
-  rotAccel: 1
+  config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
+  sightRadius: 5
   topRoot: {fileID: 764930484069836478}
   shootingRange: 20
   fireState: {fileID: 7593487496389662077}
@@ -70,10 +68,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0963eda9dee8408a8c3fe4ceae88b881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
   fireRate: 1
   bulletPrefab: {fileID: 1980256389041246415, guid: fe428c0c15dd07a4abd5931bbd3b74fb, type: 3}
   firePoint: {fileID: 6507103731239605024}
   bulletSpeed: 10
+  sightRadius: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2a5e1cdfbf4975a2c5b664ea1e0aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
   followState: {fileID: 6874160070743097993}
   bulletLayer:
     serializedVersion: 2
@@ -104,13 +105,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 9
-  dodgeSpeed: 15
-  dodgePredictionTime: 0.5
-  dodgeSafetyMargin: 1.5
-  dodgeDirectionSamples: 16
-  rotSpeed: 10
-  rotAccel: 2
-  moveAccel: 3
+  sightRadius: 5
 --- !u!1 &3012940550555575481
 GameObject:
   m_ObjectHideFlags: 0

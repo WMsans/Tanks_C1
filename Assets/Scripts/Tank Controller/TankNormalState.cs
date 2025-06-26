@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TankNormalState : TankBaseState
 {
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5.0f; 
-    [SerializeField] private float rotSpeed = 2.0f; 
-    [SerializeField] private float moveAccel;
-    [SerializeField] private float rotAccel;
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
 
@@ -23,12 +18,12 @@ public class TankNormalState : TankBaseState
     
     private void HandlePosition()
     {
-        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, transform.forward * inputInfo.MoveAxis * moveSpeed, moveAccel);
+        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, transform.forward * inputInfo.MoveAxis * config.moveSpeed, config.moveAccel);
     }
 
     private void HandleRotation()
     {
-        _currentRotationSpeed = Mathf.MoveTowards(_currentRotationSpeed, rotSpeed * inputInfo.RotationAxis, rotAccel);
+        _currentRotationSpeed = Mathf.MoveTowards(_currentRotationSpeed, config.rotSpeed * inputInfo.RotationAxis, config.rotAccel);
         rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, _currentRotationSpeed, 0f));
     }
 

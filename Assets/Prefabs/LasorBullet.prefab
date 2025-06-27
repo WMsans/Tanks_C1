@@ -157,4 +157,7 @@ MonoBehaviour:
   harmableLayer:
     serializedVersion: 2
     m_Bits: 320
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 153
   lasorTime: 0.5

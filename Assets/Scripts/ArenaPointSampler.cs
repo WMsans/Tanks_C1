@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class ArenaPointSampler : MonoBehaviour
+public class ArenaPointSampler : MonoSingleton<ArenaPointSampler>
 {
     [SerializeField] private int retryCnt;
     [SerializeField] private float minDistanceDiff;

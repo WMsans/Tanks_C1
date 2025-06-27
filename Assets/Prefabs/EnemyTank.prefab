@@ -70,9 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
   fireRate: 1
-  bulletPrefab: {fileID: 1980256389041246415, guid: fe428c0c15dd07a4abd5931bbd3b74fb, type: 3}
   firePoint: {fileID: 6507103731239605024}
-  bulletSpeed: 10
   sightRadius: 5
   playerLayer:
     serializedVersion: 2
@@ -618,6 +616,7 @@ GameObject:
   - component: {fileID: 7805102031837544742}
   - component: {fileID: 8952434243162833652}
   - component: {fileID: 8981098633221925212}
+  - component: {fileID: 1903207130377440889}
   m_Layer: 6
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -696,3 +695,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 6874160070743097993}
+--- !u!114 &1903207130377440889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604011244298869622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231130df45cb47d59d1cbbf99da31c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialTankAttack: {fileID: 11400000, guid: 0d3754c78ac6a4a44b56fb832b1bf6fa, type: 2}

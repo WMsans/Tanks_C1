@@ -19,7 +19,6 @@ public class EnemyFireState : EnemyBaseState
     {
         base.OnEnterState();
         nextFireTime = Time.time + 1f / fireRate;
-        Debug.Log("Firing");
     }
 
     public override void OnUpdateState()

@@ -23,7 +23,6 @@ public class EnemyFollowPlayerState : EnemyBaseState
         _path = new();
         _player = GameObject.FindWithTag("Player").transform;
         _enterStateTime = Time.time;
-        Debug.Log("Following");
     }
 
     public override void OnUpdateState()

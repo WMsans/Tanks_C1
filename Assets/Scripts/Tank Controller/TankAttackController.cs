@@ -8,7 +8,7 @@ public class TankAttackController : MonoBehaviour
     [SerializeField] private ScriptableObject initialTankAttack;
     public ITankAttack TankAttack { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         if (initialTankAttack is ITankAttack tankAttack)
         {

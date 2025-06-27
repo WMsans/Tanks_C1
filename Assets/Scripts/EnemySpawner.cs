@@ -5,31 +5,26 @@ using UnityEngine;
 
 public class EnemySpawner : MonoSingleton<EnemySpawner>
 {
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private ArenaPointSampler sampler;
 
-    private void OnEnable()
+    public void SpawnTanksInArena(GameObject prefab, int cnt)
     {
-        SpawnTankInArena();
-    }
-
-    public void SpawnTanksInArena(int cnt)
-    {
-        for (int i = 1; i <= cnt; i++)
+        for (var i = 1; i <= cnt; i++)
         {
-            SpawnTankInArena();
+            SpawnTankInArena(prefab);
         }
     }
-    public void SpawnTankInArena()
+
+    private void SpawnTankInArena(GameObject prefab)
     {
-        SpawnTank(sampler.GetNavMeshPointInBound(), Quaternion.identity, false);
+        SpawnTank(prefab, sampler.GetNavMeshPointInBound(), Quaternion.identity, false);
     }
 
-    private void SpawnTank(Vector3 spawnPos, Quaternion spawnRot, bool isPlayer)
+    private void SpawnTank(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot, bool isPlayer)
     {
         if (!isPlayer)
         {
-            Instantiate(enemyPrefab, spawnPos, spawnRot);
+            Instantiate(prefab, spawnPos, spawnRot);
         }
     }
 }

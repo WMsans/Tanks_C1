@@ -20,6 +20,7 @@ public class EnemyDamagable : MonoBehaviour, IDamageable
     {
         EffectManager.instance.PlayExplosion(transform.position);
         Destroy(gameObject);
+        LevelManager.Instance?.OnEnemyDie(this.gameObject);
         return;
     }
 }

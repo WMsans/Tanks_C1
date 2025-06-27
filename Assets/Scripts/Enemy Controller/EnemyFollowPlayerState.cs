@@ -21,12 +21,13 @@ public class EnemyFollowPlayerState : EnemyBaseState
     {
         base.OnEnterState();
         _path = new();
-        _player = GameObject.FindWithTag("Player").transform;
+        _player = GameObject.FindWithTag("Player")?.transform;
         _enterStateTime = Time.time;
     }
 
     public override void OnUpdateState()
     {
+        if(!_player) return;
         if (IsBulletClose())
         {
             Owner.ChangeState(dodgeState);

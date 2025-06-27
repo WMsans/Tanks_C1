@@ -40,7 +40,7 @@ public class BulletBehaviour : MonoBehaviour, IPoolable
     {
         if (((1 << other.gameObject.layer) & harmableLayer) != 0)
         {
-            HandleHit(other, Mathf.Infinity);
+            HandleHit(other, damage);
         }else if (((1 << other.gameObject.layer) & wallLayer) != 0)
         {
             HandleHit(other, damage);

@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamagable : MonoBehaviour, IDamageable
+public class PlayerDamagable : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float health;
+    [SerializeField] private float health = 1;
 
     public float Health { get => health; set => health = value; }
     public bool OnHit(float damage)
@@ -19,8 +21,8 @@ public class EnemyDamagable : MonoBehaviour, IDamageable
     private void OnDeath()
     {
         EffectManager.instance.PlayExplosion(transform.position);
+        SceneSystemManager.Instance.ChangeSceneOnDelay("2_End", 2f);
         gameObject.SetActive(false);
-        LevelManager.Instance?.OnEnemyDie(this.gameObject);
         return;
     }
 }

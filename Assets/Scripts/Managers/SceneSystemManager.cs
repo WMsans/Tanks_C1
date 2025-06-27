@@ -20,6 +20,7 @@ public class SceneSystemManager : StateMachineRunner
     }
 
     [SerializeField] private bool changeStateOnStart = false;
+    private bool _isChangingScene = false;
 
     protected override void Start()
     {
@@ -28,6 +29,7 @@ public class SceneSystemManager : StateMachineRunner
 
     public override void ChangeState(BaseState next)
     {
+        if(_isChangingScene)return;
         if (!next) return;
         if (next is not SceneState nextScene) return;
         base.ChangeState(nextScene);
@@ -35,6 +37,7 @@ public class SceneSystemManager : StateMachineRunner
 
     public void ChangeScene(string sceneName)
     {
+        if(_isChangingScene) return;
         var nextSceneStates = GetComponentsInChildren<SceneState>();
         var next = nextSceneStates.FirstOrDefault(x => x.GetSceneName().Equals(sceneName));
         ChangeState(next);
@@ -42,8 +45,23 @@ public class SceneSystemManager : StateMachineRunner
 
     public void ChangeScene(SceneField sceneField)
     {
+        if(_isChangingScene) return;
         var nextSceneStates = GetComponentsInChildren<SceneState>();
         var next = nextSceneStates.FirstOrDefault(x => x.GetSceneName().Equals(sceneField));
         ChangeState(next);
+    }
+
+    public void ChangeSceneOnDelay(string sceneName, float delay)
+    {
+        if(_isChangingScene) return;
+        StartCoroutine(ChangeStateOnDelayCoroutine(sceneName, delay));
+    }
+
+    private IEnumerator ChangeStateOnDelayCoroutine(string sceneName, float delay)
+    {
+        _isChangingScene = true;
+        yield return new WaitForSeconds(delay);
+        _isChangingScene = false;
+        ChangeScene(sceneName);
     }
 }

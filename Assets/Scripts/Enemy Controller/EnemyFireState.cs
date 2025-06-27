@@ -5,16 +5,14 @@ using UnityEngine;
 public class EnemyFireState : EnemyBaseState
 {
     [SerializeField] private float fireRate = 1f;
-    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float sightRadius = 5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private EnemyFollowPlayerState followState;
     [SerializeField] private EnemyDodgeState dodgeState;
-
+    
     private float nextFireTime;
 
     public override void OnEnterState()
@@ -77,12 +75,7 @@ public class EnemyFireState : EnemyBaseState
 
     private void Shoot()
     {
-        var bullet = PoolManager.instance.GetPooledObject(bulletPrefab);
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
-        bullet.SetActive(true);
-        var bulletRb = bullet.GetComponent<Rigidbody>();
-        bulletRb.AddForce(bulletSpeed * bullet.transform.forward, ForceMode.Impulse);
+        tankAttack.OnAttack(firePoint);
         nextFireTime = Time.time + 1f / fireRate;
     }
 

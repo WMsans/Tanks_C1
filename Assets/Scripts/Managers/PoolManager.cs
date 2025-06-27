@@ -42,6 +42,8 @@ public class PoolManager : MonoBehaviour
     {
         if (_pool.TryGetValue(prefab, out var objectList))
         {
+            var nullNum = objectList.RemoveAll(x => !x);
+            _poolLength[prefab] = Mathf.Max(0, _poolLength[prefab] - nullNum);
             var availableObject = objectList.FirstOrDefault(x => !x.activeSelf);
             if (!availableObject)
             {

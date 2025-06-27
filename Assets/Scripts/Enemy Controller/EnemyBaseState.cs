@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,11 +8,13 @@ public abstract class EnemyBaseState : BaseState
 {
     [SerializeField] protected TankConfig config;
     protected Rigidbody rb { get; private set; }
+    protected ITankAttack tankAttack { get; private set; }
 
     private float _currentRotationSpeed;
     public override void OnEnterState()
     {
         rb = Owner.GetComponent<Rigidbody>();
+        tankAttack = Owner.GetComponent<TankAttackController>().TankAttack;
     }
 
     protected void HandlePosition(float moveSpeed, float moveAccel, float input)

@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Defines the behavior of a bullet.
@@ -15,11 +18,17 @@ public class BulletBehaviour : MonoBehaviour, IPoolable
     public int bouncesRemaining = 1;
     public int damage = 1;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float bulletTime;
+    [FormerlySerializedAs("enemyLayer")] [SerializeField] private LayerMask harmableLayer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(DestroySelfCoroutine());
     }
 
     /// <summary>
@@ -29,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour, IPoolable
     /// <param name="other"></param>
     void OnCollisionEnter(Collision other)
     {
-        if (((1 << other.gameObject.layer) & enemyLayer) != 0)
+        if (((1 << other.gameObject.layer) & harmableLayer) != 0)
         {
             HandleHit(other, Mathf.Infinity);
         }else if (((1 << other.gameObject.layer) & wallLayer) != 0)
@@ -69,6 +78,11 @@ public class BulletBehaviour : MonoBehaviour, IPoolable
     {
         rb.linearVelocity = rb.angularVelocity = Vector3.zero;
         hasBounced = false;
+    }
+    private IEnumerator DestroySelfCoroutine()
+    {
+        yield return new WaitForSeconds(bulletTime);
+        gameObject.SetActive(false);
     }
 }
 

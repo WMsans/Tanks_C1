@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class TankNormalState : TankBaseState
 {
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
+    [SerializeField] private Transform shootPoint;
 
-    [SerializeField] private float cooldown;
     private float _currentRotationSpeed = 0f;
+    private float _lastAttackTime;
     public override void OnFixedUpdateState()
     {
         HandlePosition();
@@ -54,12 +54,13 @@ public class TankNormalState : TankBaseState
         {
             if (CanShoot())
             {
-                tankAttack.OnAttack();
+                _lastAttackTime = Time.time;
+                tankAttack.OnAttack(shootPoint);
             }
         }
     }
     private bool CanShoot()
     {
-        return Time.time - tankAttack.LastAttackTime > cooldown;
+        return Time.time - _lastAttackTime > tankAttack.CoolDown;
     }
 }

@@ -13,7 +13,7 @@ public abstract class TankBaseState : BaseState
     public override void OnEnterState()
     {
         rb = Owner.GetComponent<Rigidbody>();
-        tankAttack = Owner.GetComponent<ITankAttack>();
+        tankAttack = Owner.GetComponent<TankAttackController>().TankAttack;
     }
 
     protected void Update()

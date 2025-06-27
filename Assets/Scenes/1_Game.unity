@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
   topRoot: {fileID: 288866550}
-  cooldown: 0
+  shootPoint: {fileID: 249544794}
 --- !u!4 &745588589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625413570533470339, guid: ea158e5b6d7554b45a65c66689498d62, type: 3}
@@ -1289,6 +1289,7 @@ GameObject:
   - component: {fileID: 965573949}
   - component: {fileID: 965573951}
   - component: {fileID: 965573952}
+  - component: {fileID: 965573953}
   m_Layer: 0
   m_Name: ArenaSampler
   m_TagString: Untagged
@@ -1363,6 +1364,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8604011244298869622, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+  sampler: {fileID: 965573949}
+--- !u!114 &965573953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965573948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c39ff08e6b454494d3da798c63ac73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefabs:
+  - {fileID: 7111533912748398321, guid: c735b1b1d23443645b297ee39e2aeeca, type: 3}
   sampler: {fileID: 965573949}
 --- !u!1001 &1092967188
 PrefabInstance:
@@ -1765,12 +1781,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266163442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11763130d115f434e9348f8c6b9fff3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 231130df45cb47d59d1cbbf99da31c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 249544794}
-  bulletPrefab: {fileID: 1980256389041246415, guid: fe428c0c15dd07a4abd5931bbd3b74fb, type: 3}
-  firePower: 10
+  initialTankAttack: {fileID: 11400000, guid: 5d69aa25b172bf44f97b357ac5f38220, type: 2}
 --- !u!1 &1500674425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,11 +2322,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank
       objectReference: {fileID: 0}
+    - target: {fileID: 8604011244298869622, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8604011244298869622, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2261893382898077565}
   m_SourcePrefab: {fileID: 100100000, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+--- !u!1 &2261893382898077564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8604011244298869622, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
+  m_PrefabInstance: {fileID: 2261893382898077563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2261893382898077565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2261893382898077564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231130df45cb47d59d1cbbf99da31c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialTankAttack: {fileID: 11400000, guid: 0d3754c78ac6a4a44b56fb832b1bf6fa, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

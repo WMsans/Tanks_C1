@@ -19,7 +19,6 @@ public class PlayerDamagable : MonoBehaviour, IDamageable
     private void Update()
     {
         hpBar.value = Health / maxHp;
-        Debug.Log(Health + " " + maxHp);
     }
 
     public bool OnHit(float damage)

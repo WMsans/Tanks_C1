@@ -13,9 +13,7 @@ using UnityEngine.Serialization;
 public class BulletBehaviour : MonoBehaviour, IPoolable
 {
     private Rigidbody rb;
-    public int sourceID;
     public bool hasBounced = false;
-    public int bouncesRemaining = 1;
     public int damage = 1;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float bulletTime;

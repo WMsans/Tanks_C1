@@ -19,8 +19,8 @@ public class EnemyDamagable : MonoBehaviour, IDamageable
     private void OnDeath()
     {
         EffectManager.instance.PlayExplosion(transform.position);
-        gameObject.SetActive(false);
         LevelManager.Instance?.OnEnemyDie(this.gameObject);
+        Destroy(gameObject);
         return;
     }
 }

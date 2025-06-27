@@ -1,23 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemSpawner : MonoSingleton<ItemSpawner>
 {
-    [SerializeField] private List<GameObject> itemPrefabs;
     [SerializeField] private ArenaPointSampler sampler;
-    
-    public void SpawnItemInArena()
+
+    public void SpawnItemInArena(GameObject prefab, int cnt)
     {
-        SpawnTank(sampler.GetNavMeshPointInBound(), Quaternion.identity, false);
+        for(var i = 0; i < cnt;i++)
+        {
+            SpawnItem(prefab, sampler.GetNavMeshPointInBound(), Quaternion.identity, false);
+        }
     }
 
-    private void SpawnTank(Vector3 spawnPos, Quaternion spawnRot, bool isPlayer)
+    private void SpawnItem(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot, bool isPlayer)
     {
         if (!isPlayer)
         {
-            var randomItemPrefab = itemPrefabs[UnityEngine.Random.Range(0, itemPrefabs.Count)];
-            Instantiate(randomItemPrefab, spawnPos, spawnRot);
+            Instantiate(prefab, spawnPos, spawnRot);
         }
     }
 }

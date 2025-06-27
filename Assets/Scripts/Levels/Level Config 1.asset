@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf13831a3e47eb9742e4e5bca08194, type: 3}
   m_Name: Level Config 1
   m_EditorClassIdentifier: 
-  wave:
+  waveEnemies:
   - enemyPrefab: {fileID: 8604011244298869622, guid: 75be1399cbd16cf4dbbbe8c2ab0158f7, type: 3}
     enemyNum: 5
+  waveItems:
+  - itemPrefab: {fileID: 8244257910327758572, guid: b7161356972a1ba4dbf7adfce15f34b2, type: 3}
+    itemNum: 2

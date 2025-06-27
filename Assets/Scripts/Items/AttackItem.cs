@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class LasorItem : MonoBehaviour, IPickable
+public class AttackItem : MonoBehaviour, IPickable
 {
     [SerializeField] private ScriptableObject lasorTankAttack;
     [SerializeField] private LayerMask characterLayer;

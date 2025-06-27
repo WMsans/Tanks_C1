@@ -11,6 +11,8 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
     [SerializeField] private LayerMask harmableLayer;
     [SerializeField] private LayerMask obstacleLayer; 
     [SerializeField] private float lasorTime;
+    [SerializeField] private Transform ownerPos;
+    private GameObject _owner;
 
     private LineRenderer _lineRenderer;
 
@@ -23,6 +25,8 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
     {
         if (gameObject.activeInHierarchy)
         {
+            var cols = Physics.OverlapSphere(ownerPos.position, .1f, harmableLayer, QueryTriggerInteraction.UseGlobal);
+            if (cols.Length > 0) _owner = cols[0].transform.root.gameObject;
             StartCoroutine(DestroySelfCoroutine());
         }
     }
@@ -37,8 +41,8 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
         InitializeVariables();
 
         var points = new List<Vector3> { startPosition };
-        Vector3 currentPosition = startPosition;
-        Vector3 currentDirection = initialDirection;
+        var currentPosition = startPosition;
+        var currentDirection = initialDirection;
         var bounceCount = 0;
 
         CheckForHarmableObjects(startPosition, initialDirection);
@@ -68,10 +72,10 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
 
     private void CheckForHarmableObjects(Vector3 startPosition, Vector3 direction)
     {
-
-        RaycastHit[] hits = Physics.RaycastAll(startPosition, direction, maxDistance, harmableLayer);
+        var hits = Physics.RaycastAll(startPosition, direction, maxDistance, harmableLayer);
         foreach (var hit in hits)
         {
+            if(hit.collider.transform.root.gameObject != _owner)
             OnHit(hit.collider);
         }
     }

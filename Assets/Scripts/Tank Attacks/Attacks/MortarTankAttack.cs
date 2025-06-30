@@ -12,7 +12,6 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
     public float CoolDown => coolDown;
     public void OnAttack(Transform shootPoint)
     {
-
         var bulletObject = PoolManager.instance.GetPooledObject(bulletPrefab);
         bulletObject.transform.position = shootPoint.transform.position;
         bulletObject.transform.rotation = shootPoint.transform.rotation;

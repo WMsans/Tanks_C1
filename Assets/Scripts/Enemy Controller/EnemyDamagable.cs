@@ -5,6 +5,7 @@ public class EnemyDamagable : MonoBehaviour, IDamageable
     [SerializeField] private float health;
 
     public float Health { get => health; set => health = value; }
+    private bool dead = false;
     public bool OnHit(float damage)
     {
         Health -= damage;
@@ -18,8 +19,10 @@ public class EnemyDamagable : MonoBehaviour, IDamageable
     }
     private void OnDeath()
     {
+        if(dead) return;
         EffectManager.instance.PlayExplosion(transform.position);
         LevelManager.Instance?.OnEnemyDie(this.gameObject);
+        dead = true;
         Destroy(gameObject);
         return;
     }

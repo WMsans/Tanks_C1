@@ -76,7 +76,7 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
         foreach (var hit in hits)
         {
             if(hit.collider.transform.root.gameObject != _owner)
-            OnHit(hit.collider);
+                OnHit(hit.collider);
         }
     }
 
@@ -99,11 +99,5 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
 
             damageable.OnHit(hitDamage);
         }
-    }
-
-    private void OnExplode()
-    {
-        gameObject.SetActive(false);
-        return;
     }
 }

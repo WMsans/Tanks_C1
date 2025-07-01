@@ -80,7 +80,7 @@ public class BulletBehaviour : MonoBehaviour, IPoolable
     private IEnumerator DestroySelfCoroutine()
     {
         yield return new WaitForSeconds(bulletTime);
-        gameObject.SetActive(false);
+        OnExplode();
     }
 }
 

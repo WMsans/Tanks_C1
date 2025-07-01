@@ -27,6 +27,7 @@ public class EnemyFollowPlayerState : EnemyBaseState
 
     public override void OnUpdateState()
     {
+        base.OnUpdateState();
         if(!_player) return;
         if (IsBulletClose())
         {

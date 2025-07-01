@@ -9,12 +9,18 @@ public abstract class EnemyBaseState : BaseState
     [SerializeField] protected TankConfig config;
     protected Rigidbody rb { get; private set; }
     protected ITankAttack tankAttack { get; private set; }
+    private TankAttackController _attackController;
 
     private float _currentRotationSpeed;
     public override void OnEnterState()
     {
         rb = Owner.GetComponent<Rigidbody>();
-        tankAttack = Owner.GetComponent<TankAttackController>().TankAttack;
+        _attackController = Owner.GetComponent<TankAttackController>();
+    }
+
+    public override void OnUpdateState()
+    {
+        tankAttack = _attackController.TankAttack;
     }
 
     protected void HandlePosition(float moveSpeed, float moveAccel, float input)

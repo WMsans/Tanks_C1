@@ -86,7 +86,7 @@ public class EnemyDodgeState : EnemyBaseState
 
     public override void OnUpdateState()
     {
-
+        base.OnUpdateState();
         if (!IsBulletClose())
         {
             Owner.ChangeState(followState);

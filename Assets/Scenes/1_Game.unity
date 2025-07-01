@@ -207,10 +207,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def819c5ffab9754da2663960bd0bdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arena: {fileID: 965573951}
+  arena: {fileID: 331005707}
   iconDataList:
   - type: 0
     sprite: {fileID: 21300000, guid: 80ae7a949939c044693b7dcfe114993c, type: 3}
+  - type: 4
+    sprite: {fileID: 21300000, guid: 7431d025269f3cf48b9818bb307684e5, type: 3}
+  - type: 5
+    sprite: {fileID: 21300000, guid: a69b319275adb344184a01eaadc8d022, type: 3}
+  - type: 2
+    sprite: {fileID: 21300000, guid: f71967a8c521b164dbfade7916c00a11, type: 3}
+  - type: 1
+    sprite: {fileID: 21300000, guid: 1eea646285d163c4b911fea52b7a0dd1, type: 3}
   minimapIconPrefab: {fileID: 8343366947876780568, guid: e3f7ea4c9d978a74f8b25fb7e58b3819, type: 3}
 --- !u!1 &61538104
 GameObject:
@@ -2577,7 +2585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231130df45cb47d59d1cbbf99da31c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTankAttack: {fileID: 11400000, guid: 0d3754c78ac6a4a44b56fb832b1bf6fa, type: 2}
+  initialTankAttack: {fileID: 11400000, guid: 5d69aa25b172bf44f97b357ac5f38220, type: 2}
 --- !u!114 &1266163448
 MonoBehaviour:
   m_ObjectHideFlags: 0

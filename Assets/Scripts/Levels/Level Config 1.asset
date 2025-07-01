@@ -18,3 +18,5 @@ MonoBehaviour:
   waveItems:
   - itemPrefab: {fileID: 8244257910327758572, guid: b7161356972a1ba4dbf7adfce15f34b2, type: 3}
     itemNum: 2
+  - itemPrefab: {fileID: 8029330199918244763, guid: d310353325028074aabf53fecb0145b4, type: 3}
+    itemNum: 3

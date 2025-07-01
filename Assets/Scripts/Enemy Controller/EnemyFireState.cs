@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyFireState : EnemyBaseState
 {
-    [SerializeField] private float fireRate = 1f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float sightRadius = 5f;
     [SerializeField] private LayerMask playerLayer;
@@ -12,30 +11,20 @@ public class EnemyFireState : EnemyBaseState
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private EnemyFollowPlayerState followState;
     [SerializeField] private EnemyDodgeState dodgeState;
-    
-    private float nextFireTime;
-
-    public override void OnEnterState()
-    {
-        base.OnEnterState();
-        nextFireTime = Time.time + 1f / fireRate;
-    }
 
     public override void OnUpdateState()
     {
+        base.OnUpdateState();
         if (IsBulletClose())
         {
             Owner.ChangeState(dodgeState);
             return;
         }
 
-        if (Time.time >= nextFireTime)
+        if (CanSeePlayer())
         {
-            if (CanSeePlayer())
-            {
-                Shoot();
-                Owner.ChangeState(followState);
-            }
+            Shoot();
+            Owner.ChangeState(followState);
         }
     }
 
@@ -75,7 +64,6 @@ public class EnemyFireState : EnemyBaseState
     private void Shoot()
     {
         tankAttack.OnAttack(firePoint);
-        nextFireTime = Time.time + 1f / fireRate;
     }
 
     private bool IsBulletClose()

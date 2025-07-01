@@ -13,6 +13,7 @@ public enum MinimapTypeEnum
     Wall,
     DestructibleWall,
     PickupHealing,
+    PickupWeapon,
     Num
 }
 

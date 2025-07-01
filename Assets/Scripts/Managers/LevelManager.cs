@@ -10,6 +10,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     [SerializeField] private TextMeshProUGUI enemyCntText;
     private int currentWaveNum;
     private int currentEnemyNum;
+    public void SetCurrentWaveNum(int n) => currentWaveNum = n;
     private void Update()
     {
         if (currentEnemyNum <= 0 && currentWaveNum <= levels.Count) GoToNextLevel();
@@ -22,6 +23,10 @@ public class LevelManager : MonoSingleton<LevelManager>
         levels[currentWaveNum].GenerateLevel();
         currentEnemyNum = levels[currentWaveNum].GetEnemyNum();
         enemyCntText.text = currentEnemyNum.ToString();
+        
+        // Save level
+        GameDataSystemManager.Instance.CurrentGameData.levelProgressList[currentWaveNum].isCleared = true;
+        GameDataSystemManager.Instance.SaveProgress();
     }
 
     public void OnEnemyDie(GameObject enemy)

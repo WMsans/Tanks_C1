@@ -14,4 +14,6 @@ public interface IMinimapObject
 
     // Provide interface the ability of returning gameObject.
     public GameObject gameObject { get; }
+    public Transform transform { get; }
+    public bool RenderAsRealScale { get; } 
 }

@@ -47,6 +47,11 @@ public class MinimapIcon : MonoBehaviour
             // update its position
             Vector3 offset = trackedObjTransform.position - arenaCenter.position;
             rectTransform.anchoredPosition = new Vector2(offset.x * scaler.x, offset.z * scaler.y);
+            if(miniMapObj.RenderAsRealScale)
+            {
+                rectTransform.eulerAngles = new Vector3(0, 0, trackedObjTransform.eulerAngles.y);
+                rectTransform.sizeDelta = new Vector2(trackedObjTransform.localScale.x, trackedObjTransform.localScale.z);
+            }
         }
     }
 

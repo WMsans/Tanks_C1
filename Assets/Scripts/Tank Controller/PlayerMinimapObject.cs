@@ -7,6 +7,7 @@ public class PlayerMinimapObject : MonoBehaviour, IMinimapObject
 {
     public MinimapTypeEnum MinimapType => MinimapTypeEnum.Player;
     public Action onDestroyed { get; set; }
+    public bool RenderAsRealScale => false;
 
     private void OnEnable()
     {

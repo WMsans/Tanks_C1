@@ -114,24 +114,14 @@ namespace Editor.Level_Editor
             TraverseAndGenerate(entryNode, Vector3.zero, Quaternion.identity, generatedNodes);
         }
 
-        /// <summary>
-        /// Recursively traverses the node graph to generate rooms. It attempts to place a room for the given node,
-        /// then recursively calls itself for all connected child nodes, using the new room's available exit ports.
-        /// </summary>
-        /// <param name="nodeToPlace">The current graph node to build a room for.</param>
-        /// <param name="parentEntryPointPos">The world position of the parent's exit port.</param>
-        /// <param name="parentEntryPointRot">The world rotation of the parent's exit port.</param>
-        /// <param name="generatedNodes">A set of nodes already visited in the current generation path to prevent infinite loops.</param>
-        /// <returns>True if the room and its entire child branch were generated successfully, otherwise false.</returns>
         private bool TraverseAndGenerate(BaseNode nodeToPlace, Vector3 parentEntryPointPos, Quaternion parentEntryPointRot, HashSet<BaseNode> generatedNodes)
         {
-            // Add the current node to the set to prevent cycles within this branch.
+
             if (!generatedNodes.Add(nodeToPlace))
             {
-                return true; // Not an error, just a loop in the graph. Stop this path.
+                return true; 
             }
 
-            // This outer loop tries different room prefabs if a placement fails.
             var roomChangeAttempts = GraphProperties.RoomChangeAttempts;
             while (roomChangeAttempts > 0)
             {
@@ -151,8 +141,7 @@ namespace Editor.Level_Editor
                     Object.DestroyImmediate(roomInstance);
                     break;
                 }
-                
-                // This inner loop tries different entry points on the new room to connect to the parent's exit.
+
                 var availableEntryPoints = new List<Transform>(allEntryPoints);
                 while (availableEntryPoints.Count > 0)
                 {
@@ -164,9 +153,7 @@ namespace Editor.Level_Editor
 
                     if (!CheckOverlap(roomInstance))
                     {
-                        // **FIXED LOGIC STARTS HERE**
 
-                        // 1. Add this room's bounds immediately so children can detect it.
                         var roomCollider = roomInstance.GetComponent<Collider>();
                         bool boundsAdded = false;
                         if (roomCollider != null)
@@ -177,14 +164,13 @@ namespace Editor.Level_Editor
                             boundsAdded = true;
                         }
 
-                        // 2. Attempt to generate children recursively.
                         var availableChildPorts = allEntryPoints.Where(e => e != randomEntryPoint).ToList();
                         var childGraphNodes = nodeToPlace.outputContainer.Children().Cast<Port>()
                             .Where(p => p.connected)
                             .Select(p => p.connections.First().input.node as BaseNode)
                             .Where(n => n != null)
                             .ToList();
-                        
+
                         bool allChildrenPlaced = true;
                         if (childGraphNodes.Count > 0)
                         {
@@ -196,7 +182,7 @@ namespace Editor.Level_Editor
                                     allChildrenPlaced = false;
                                     break;
                                 }
-                                
+
                                 bool childPlacedSuccessfully = false;
                                 int portRetryCount = Mathf.Min(GraphProperties.EntryPointSwaps, availableChildPorts.Count);
                                 for(int i = 0; i < portRetryCount; i++)
@@ -217,22 +203,21 @@ namespace Editor.Level_Editor
                                 }
                             }
                         }
-                        
-                        // 3. Evaluate success and backtrack if necessary.
+
                         if (allChildrenPlaced)
                         {
-                            // SUCCESS! The bounds are already added, so we are done.
+
                             return true;
                         }
                         else
                         {
-                            // FAILURE: Children couldn't be placed. Remove this room's bounds to backtrack.
+
                             if (boundsAdded)
                             {
                                 _generatedRoomBounds.RemoveAt(_generatedRoomBounds.Count - 1);
                             }
                         }
-                        // **FIXED LOGIC ENDS HERE**
+
                     }
                 }
 
@@ -244,11 +229,6 @@ namespace Editor.Level_Editor
             return false;
         }
 
-        /// <summary>
-        /// Attempts to place a single room and recursively generate its children.
-        /// This contains the core logic for retrying placements and exit ports.
-        /// </summary>
-        /// <returns>True if the room and its children were placed, false otherwise.</returns>
         private bool TryPlaceRoomAndGenerateChildren(BaseNode node, Vector3 parentEntryPointPos, Quaternion parentEntryPointRot, HashSet<BaseNode> generatedNodes)
         {
             var roomChangeAttempts = GraphProperties.RoomChangeAttempts;
@@ -258,7 +238,7 @@ namespace Editor.Level_Editor
                 if (selectedRoomData.Prefab == null)
                 {
                     Debug.LogWarning($"No room found with tags: {string.Join(", ", node.TagsRequired)} for node {node.title}.");
-                    return false; // Cannot proceed without a room prefab
+                    return false; 
                 }
 
                 var roomInstance = (GameObject)PrefabUtility.InstantiatePrefab(selectedRoomData.Prefab);
@@ -269,10 +249,9 @@ namespace Editor.Level_Editor
                 {
                     Debug.LogError($"Prefab {roomInstance.name} has no 'EntryPoint' objects!");
                     Object.DestroyImmediate(roomInstance);
-                    return false; // Cannot place a room with no entry points
+                    return false; 
                 }
 
-                // Try to find a valid placement by testing different entry points on the new room
                 var entryPointSwaps = GraphProperties.EntryPointSwaps;
                 while (entryPointSwaps > 0)
                 {
@@ -283,15 +262,14 @@ namespace Editor.Level_Editor
 
                     if (!CheckOverlap(roomInstance))
                     {
-                        // Tentative placement is good. NOW, try to generate its children before committing.
+
                         var availableChildPorts = GetEntryPoints(roomInstance).Where(e => e != randomEntryPoint).ToList();
-                        
-                        // This is the new logic to robustly generate children
+
                         bool childrenGeneratedSuccessfully = GenerateChildren(node, availableChildPorts, generatedNodes);
 
                         if (childrenGeneratedSuccessfully)
                         {
-                            // Full success! The room is placed and its children are generated.
+
                             var roomCollider = roomInstance.GetComponent<Collider>();
                             if (roomCollider != null)
                             {
@@ -299,28 +277,21 @@ namespace Editor.Level_Editor
                                 newRoomBounds.center += roomCollider.transform.position;
                                 _generatedRoomBounds.Add(newRoomBounds);
                             }
-                            return true; // This placement was a success.
+                            return true; 
                         }
-                        // If children failed, we continue the 'entryPointSwaps' loop to try a different alignment for the current room.
+
                     }
                     entryPointSwaps--;
                 }
 
-                // If we reach here, it means we tried all entry point swaps for this room prefab and failed.
-                // Destroy the failed instance and try a new room prefab.
                 Object.DestroyImmediate(roomInstance);
                 roomChangeAttempts--;
             }
 
             Debug.LogWarning($"All placement attempts failed for node {node.title}.");
-            return false; // All attempts to place this room and its children have failed.
+            return false; 
         }
 
-        /// <summary>
-        /// Tries to spawn the required number of child rooms from a parent's available exit ports.
-        /// It retries using different ports if a recursive call to TraverseAndGenerate fails.
-        /// </summary>
-        /// <returns>True if all required children were generated successfully.</returns>
         private bool GenerateChildren(BaseNode parentNode, List<Transform> availablePorts, HashSet<BaseNode> generatedNodes)
         {
             var childrenToGenerate = Mathf.Min(parentNode.NumberOfRooms, availablePorts.Count);
@@ -330,17 +301,15 @@ namespace Editor.Level_Editor
             {
                 bool childGenerated = false;
                 int attempts = 0;
-                
-                // As requested, use EntryPointSwaps as the number of retry attempts for finding a working port
+
                 int maxAttempts = GraphProperties.EntryPointSwaps;
 
                 while (!childGenerated && availablePorts.Count > 0 && attempts < maxAttempts)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, availablePorts.Count);
                     var selectedPort = availablePorts[randomIndex];
-                    availablePorts.RemoveAt(randomIndex); // Consume port for this attempt
+                    availablePorts.RemoveAt(randomIndex); 
 
-                    // Recursively call the main function for the child branch
                     if (TraverseAndGenerate(parentNode, selectedPort.position, selectedPort.rotation, generatedNodes))
                     {
                         childGenerated = true;
@@ -348,16 +317,14 @@ namespace Editor.Level_Editor
                     }
                     attempts++;
                 }
-                
+
                 if (!childGenerated)
                 {
-                    // If we couldn't generate this specific child after all attempts,
-                    // we consider the entire parent placement a failure.
+
                     return false;
                 }
             }
 
-            // Return true only if we successfully generated the required number of children.
             return successfulChildren >= childrenToGenerate;
         }
 

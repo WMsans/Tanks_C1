@@ -25,6 +25,12 @@ MonoBehaviour:
   - BaseNodeGuid: 49e2e9ae-e84e-4669-865b-578d2d85ce6b
     PortName: Out 2
     TargetNodeGuid: eca3f003-b1bf-40cb-9bf9-b3a351e0c0fb
+  - BaseNodeGuid: 1180eef6-5ab0-41a9-b3ff-69379a034934
+    PortName: Out 0
+    TargetNodeGuid: 00b56edd-8b3a-460b-9e5f-adfe16bba57f
+  - BaseNodeGuid: 00b56edd-8b3a-460b-9e5f-adfe16bba57f
+    PortName: Out 0
+    TargetNodeGuid: cd5b2c7b-0c93-4d6d-9fe6-9dcedf5e8afb
   NodeData:
   - Guid: d14431b3-43a2-4021-b367-f3e53906c11d
     NodeType: StartNode
@@ -43,7 +49,7 @@ MonoBehaviour:
     Position: {x: 601.3334, y: 342.66666}
     Tags:
     - Small
-    NumOutputs: 0
+    NumOutputs: 1
   - Guid: 49e2e9ae-e84e-4669-865b-578d2d85ce6b
     NodeType: BattleNode
     Position: {x: 346, y: 200}
@@ -55,6 +61,18 @@ MonoBehaviour:
     Position: {x: 601.3334, y: 461.33334}
     Tags:
     - Large
+    NumOutputs: 0
+  - Guid: 00b56edd-8b3a-460b-9e5f-adfe16bba57f
+    NodeType: BattleNode
+    Position: {x: 830, y: 342.66666}
+    Tags:
+    - Battle
+    NumOutputs: 1
+  - Guid: cd5b2c7b-0c93-4d6d-9fe6-9dcedf5e8afb
+    NodeType: BattleNode
+    Position: {x: 1086, y: 342.66666}
+    Tags:
+    - Battle
     NumOutputs: 0
   GraphProperties:
     EntryPointSwaps: 10

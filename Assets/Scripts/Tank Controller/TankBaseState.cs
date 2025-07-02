@@ -12,7 +12,7 @@ public abstract class TankBaseState : BaseState
     private TankAttackController _attackController;
     public override void OnEnterState()
     {
-        rb = Owner.GetComponent<Rigidbody>();
+        rb = Owner.GetComponentInChildren<Rigidbody>();
         _attackController = Owner.GetComponent<TankAttackController>();
         tankAttack = _attackController.TankAttack;
     }

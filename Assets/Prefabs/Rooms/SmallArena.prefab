@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 8099049998163610179}
   - component: {fileID: 6149674875326973708}
   m_Layer: 2
-  m_Name: ArenaSampler (1)
+  m_Name: ArenaSampler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,11 +356,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   retryCnt: 10
-  minDistanceDiff: 1
+  minDistanceDiff: 0.2
   arena: {fileID: 1879880441845505572}
   layerToAvoid:
     serializedVersion: 2
-    m_Bits: 265
+    m_Bits: 256
 --- !u!114 &8099049998163610179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 5823878257245574157}
   - component: {fileID: 1879880441845505572}
   - component: {fileID: -9197771645834777018}
+  - component: {fileID: 6690181734844756712}
   m_Layer: 0
   m_Name: SmallArena
   m_TagString: Room
@@ -463,6 +464,41 @@ MonoBehaviour:
   Tags:
   - Small
   - Battle
+  OnEnterRoom:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6690181734844756712}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: set_CanGenerate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &6690181734844756712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8465570448196825060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2f4c7d9e5864948872b9ad502e3560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 11400000, guid: 2830d8edb0ff6c3458e9a36f19852c0c, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 1388782c87d1c6d49b45c23d27d78172, type: 2}
+  enemySpawner: {fileID: 8099049998163610179}
+  itemSpawner: {fileID: 6149674875326973708}
 --- !u!1001 &1799256929691726586
 PrefabInstance:
   m_ObjectHideFlags: 0

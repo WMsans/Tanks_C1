@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 5352508337930754876}
   - component: {fileID: 7496370561266995616}
   - component: {fileID: 3233240781418368448}
+  - component: {fileID: 8146503819577778619}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Room
@@ -334,6 +335,41 @@ MonoBehaviour:
   Tags:
   - Large
   - Battle
+  OnEnterRoom:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8146503819577778619}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: set_CanGenerate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &8146503819577778619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866728255612380012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2f4c7d9e5864948872b9ad502e3560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 11400000, guid: 2830d8edb0ff6c3458e9a36f19852c0c, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 1388782c87d1c6d49b45c23d27d78172, type: 2}
+  enemySpawner: {fileID: 6899779712187442193}
+  itemSpawner: {fileID: 3444058508283495691}
 --- !u!1 &4952652701812979041
 GameObject:
   m_ObjectHideFlags: 0

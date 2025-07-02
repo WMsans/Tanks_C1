@@ -14,7 +14,7 @@ namespace Editor.Level_Editor.Nodes
             AddOutputPorts();
         }
         
-        public override sealed void AddOutputPorts()
+        public sealed override void AddOutputPorts()
         {
             outputContainer.Clear();
             for (var i = 0; i < NumberOfRooms && i < 4; i++)

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface ILevelGenerator
 {
     public string Name { get; }
-    public void GenerateLevel();
+    public void GenerateLevel(EnemySpawner enemySpawner, ItemSpawner itemSpawner);
 }

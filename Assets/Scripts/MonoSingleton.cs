@@ -10,7 +10,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogError("More than one Input System Manager in the scene.");
+            Debug.LogError("More than one Manager in the scene.");
             Destroy(gameObject);
             return;
         }

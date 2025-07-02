@@ -16,6 +16,6 @@ public class EnemyMinimapObject : MonoBehaviour, IMinimapObject
 
     private void OnDisable()
     {
-        onDestroyed.Invoke();
+        onDestroyed?.Invoke();
     }
 }

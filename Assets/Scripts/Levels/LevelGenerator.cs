@@ -26,15 +26,13 @@ public class LevelGenerator : ScriptableObject, ILevelGenerator
     [SerializeField] private string name;
     public string Name => name;
 
-    public void GenerateLevel()
+    public void GenerateLevel(EnemySpawner enemySpawner, ItemSpawner itemSpawner)
     {
-        var spawner = FindObjectsByType<EnemySpawner>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).OrderBy(spawner => Vector3.Distance(spawner.transform.position, PlayerSingleton.Instance.transform.position)).FirstOrDefault();
         foreach (var x in waveEnemies)
         {
-            if (spawner != null) spawner.SpawnTanksInArena(x.enemyPrefab, x.enemyNum);
+            if (enemySpawner != null) enemySpawner.SpawnTanksInArena(x.enemyPrefab, x.enemyNum);
         }
 
-        var itemSpawner = FindObjectsByType<ItemSpawner>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).OrderBy(itemSpawner => Vector3.Distance(itemSpawner.transform.position, PlayerSingleton.Instance.transform.position)).FirstOrDefault();
         foreach (var x in waveItems)
         {
             if (itemSpawner != null) itemSpawner.SpawnItemInArena(x.itemPrefab, x.itemNum);

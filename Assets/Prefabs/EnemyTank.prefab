@@ -617,6 +617,7 @@ GameObject:
   - component: {fileID: 8981098633221925212}
   - component: {fileID: 1903207130377440889}
   - component: {fileID: 2958110135644446560}
+  - component: {fileID: 4548026179995853104}
   m_Layer: 6
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -715,8 +716,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8604011244298869622}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90df559d9927439eaeae850beff62a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4548026179995853104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604011244298869622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf9db670c1df4bb2843b82560ce5409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 5b47ca1209db34047b14f65d2db913e4, type: 3}
+  size: {x: 15, y: 15}
+  rotateWithObject: 1
+  upAxis: {x: 0, y: 1, z: 0}
+  initialIconRotation: 0
+  clampIconInBorder: 1
+  clampDistance: 100

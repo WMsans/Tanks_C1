@@ -33,6 +33,11 @@ public class TitleDisplaySystem : MonoBehaviour
         view.SetState(TitleDisplayState.PickLevel);
     }
 
+    public void SetViewStartToMultiplayer()
+    {
+        view.SetState(TitleDisplayState.Multiplayer);
+    }
+
     void Start()
     {
         view.InitStateMachine();

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
-namespace Editor.Level_Editor.Nodes
+namespace Level_Editor.Nodes
 {
     public abstract class BaseNode : Node
     {

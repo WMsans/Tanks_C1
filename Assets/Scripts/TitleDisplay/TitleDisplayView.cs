@@ -12,6 +12,7 @@ using UnityEngine;
         ConfirmClearProgress,
         MsgProgressCleared,
         PickLevel,
+        Multiplayer,
         Num
     }
 public class TitleDisplayView : MonoBehaviour

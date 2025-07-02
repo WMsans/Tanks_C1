@@ -84,7 +84,7 @@ public class EnemyFollowPlayerState : EnemyBaseState
     {
         HandlePosition(config.moveSpeed, config.moveAccel, _moveVal);
         HandleRotation(config.rotSpeed, config.rotAccel, _rotVal);
-        HandleAiming(topRoot, _player.position);
+        if(!_player) HandleAiming(topRoot, _player.position);
     }
 
     private bool IsBulletClose()

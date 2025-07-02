@@ -23,8 +23,8 @@ public class LevelGenerator : ScriptableObject, ILevelGenerator
     
     [FormerlySerializedAs("wave")] [SerializeField] private List<EnemySpawnWaveConfig> waveEnemies;
     [SerializeField] private List<ItemSpawnWaveConfig> waveItems;
-    [SerializeField] private string name;
-    public string Name => name;
+    [FormerlySerializedAs("name")] [SerializeField] private string levelName;
+    public string LevelName => levelName;
 
     public void GenerateLevel(EnemySpawner enemySpawner, ItemSpawner itemSpawner)
     {

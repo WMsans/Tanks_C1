@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Editor.Level_Editor.Nodes;
+using Level_Editor.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-namespace Editor.Level_Editor
+namespace Level_Editor
 {
     public class LGraphView : GraphView
     {

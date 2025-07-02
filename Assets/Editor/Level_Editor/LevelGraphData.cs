@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Editor.Level_Editor
+namespace Level_Editor
 {
     [System.Serializable]
     public class NodeLinkData

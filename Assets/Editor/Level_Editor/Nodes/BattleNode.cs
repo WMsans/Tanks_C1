@@ -1,6 +1,6 @@
 using UnityEditor.Experimental.GraphView;
 
-namespace Editor.Level_Editor.Nodes
+namespace Level_Editor.Nodes
 {
     public class BattleNode : BaseNode
     {

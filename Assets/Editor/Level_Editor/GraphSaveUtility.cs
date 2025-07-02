@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Editor.Level_Editor.Nodes;
+using Level_Editor.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Editor.Level_Editor
+namespace Level_Editor
 {
     public class GraphSaveUtility
     {
@@ -95,7 +95,7 @@ namespace Editor.Level_Editor
         {
             foreach (var nodeData in _levelGraphData.NodeData)
             {
-                var tempNode = (BaseNode)Activator.CreateInstance(Type.GetType($"Editor.Level_Editor.Nodes.{nodeData.NodeType}, Assembly-CSharp-Editor") ?? throw new InvalidOperationException());
+                var tempNode = (BaseNode)Activator.CreateInstance(Type.GetType($"Level_Editor.Nodes.{nodeData.NodeType}, Assembly-CSharp-Editor") ?? throw new InvalidOperationException());
                 tempNode.GUID = nodeData.Guid;
                 tempNode.SetPosition(new Rect(nodeData.Position, _graphView.DefaultNodeSize));
                 tempNode.TagsRequired = nodeData.Tags;

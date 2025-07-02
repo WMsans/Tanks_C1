@@ -20,10 +20,18 @@ namespace Editor.Level_Editor
         public List<string> Tags;
         public int NumOutputs;
     }
+    
+    [System.Serializable]
+    public class GraphProperties
+    {
+        public int EntryPointSwaps = 10;
+        public int RoomChangeAttempts = 5;
+    }
 
     public class LevelGraphData : ScriptableObject
     {
         public List<NodeLinkData> LinkData = new List<NodeLinkData>();
         public List<NodeData> NodeData = new List<NodeData>();
+        public GraphProperties GraphProperties = new GraphProperties();
     }
 }

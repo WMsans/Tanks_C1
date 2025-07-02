@@ -14,7 +14,8 @@ namespace Editor.Level_Editor.Nodes
 
         public override sealed void AddOutputPorts()
         {
-            for (int i = 0; i < NumberOfRooms && i < 4; i++)
+            outputContainer.Clear();
+            for (var i = 0; i < NumberOfRooms && i < 4; i++)
             {
                 var port = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(float));
                 port.portName = $"Out {i}";

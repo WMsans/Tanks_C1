@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -27,16 +28,16 @@ public class LevelGenerator : ScriptableObject, ILevelGenerator
 
     public void GenerateLevel()
     {
-        var spawner = EnemySpawner.Instance;
+        var spawner = FindObjectsByType<EnemySpawner>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).OrderBy(spawner => Vector3.Distance(spawner.transform.position, PlayerSingleton.Instance.transform.position)).FirstOrDefault();
         foreach (var x in waveEnemies)
         {
-            spawner.SpawnTanksInArena(x.enemyPrefab, x.enemyNum);
+            if (spawner != null) spawner.SpawnTanksInArena(x.enemyPrefab, x.enemyNum);
         }
 
-        var itemSpawner = ItemSpawner.Instance;
+        var itemSpawner = FindObjectsByType<ItemSpawner>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).OrderBy(itemSpawner => Vector3.Distance(itemSpawner.transform.position, PlayerSingleton.Instance.transform.position)).FirstOrDefault();
         foreach (var x in waveItems)
         {
-            itemSpawner.SpawnItemInArena(x.itemPrefab, x.itemNum);
+            if (itemSpawner != null) itemSpawner.SpawnItemInArena(x.itemPrefab, x.itemNum);
         }
     }
 

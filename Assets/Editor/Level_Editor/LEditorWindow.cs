@@ -12,14 +12,14 @@ namespace Editor.Level_Editor
         [MenuItem("Tools/Level Editor/Editor Window")]
         public static void ShowExample()
         {
-            LEditorWindow wnd = GetWindow<LEditorWindow>();
+            var wnd = GetWindow<LEditorWindow>();
             wnd.titleContent = new GUIContent("Level Graph");
         }
 
         public void CreateGUI()
         {
             // Each editor window contains a root VisualElement object
-            VisualElement root = rootVisualElement;
+            var root = rootVisualElement;
 
             // Add the graph view
             _graphView = new LGraphView
@@ -41,6 +41,7 @@ namespace Editor.Level_Editor
             toolbar.Add(new Button(() => RequestDataOperation(true)) { text = "Save Data" });
             toolbar.Add(new Button(() => RequestDataOperation(false)) { text = "Load Data" });
             toolbar.Add(new Button(() => _graphView.GenerateLevel()) { text = "Generate Level" });
+            toolbar.Add(new Button(() => GraphPropertiesWindow.ShowWindow(_graphView)) { text = "Properties" });
 
 
             root.Add(toolbar);

@@ -11,19 +11,32 @@ namespace Editor.Level_Editor.Nodes
         public List<string> TagsRequired = new List<string>();
         public int NumberOfRooms = 1;
 
+        private TextField _tagsField;
+        private IntegerField _intField;
+
         protected BaseNode()
         {
-            var tagsField = new TextField("Tags (comma-separated):");
-            tagsField.RegisterValueChangedCallback(evt =>
+            _tagsField = new TextField("Tags (comma-separated):");
+            _tagsField.RegisterValueChangedCallback(evt =>
             {
-                string[] tags = evt.newValue.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var tags = evt.newValue.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 TagsRequired = new List<string>(tags);
             });
-            mainContainer.Add(tagsField);
+            mainContainer.Add(_tagsField);
 
-            var intField = new IntegerField("Num Outputs:");
-            intField.RegisterValueChangedCallback(evt => NumberOfRooms = evt.newValue);
-            mainContainer.Add(intField);
+            _intField = new IntegerField("Num Outputs:");
+            _intField.RegisterValueChangedCallback(evt =>
+            {
+                NumberOfRooms = evt.newValue;
+                AddOutputPorts();
+            });
+            mainContainer.Add(_intField);
+        }
+
+        public void LoadValuesIntoFields()
+        {
+            _tagsField.SetValueWithoutNotify(string.Join(",", TagsRequired));
+            _intField.SetValueWithoutNotify(NumberOfRooms);
         }
 
         public abstract void AddOutputPorts();

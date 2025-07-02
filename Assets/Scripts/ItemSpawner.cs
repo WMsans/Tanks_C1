@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSpawner : MonoSingleton<ItemSpawner>
+public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private ArenaPointSampler sampler;
 

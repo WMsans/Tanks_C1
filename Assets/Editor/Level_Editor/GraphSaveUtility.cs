@@ -28,6 +28,8 @@ namespace Editor.Level_Editor
             var graphData = ScriptableObject.CreateInstance<LevelGraphData>();
             var connectedPorts = Edges.Where(x => x.input.node != null).ToArray();
 
+            graphData.GraphProperties = _graphView.GraphProperties;
+
             foreach (var node in Nodes)
             {
                 graphData.NodeData.Add(new NodeData
@@ -45,6 +47,8 @@ namespace Editor.Level_Editor
                  var outputNode = connectedPorts[i].output.node as BaseNode;
                  var inputNode = connectedPorts[i].input.node as BaseNode;
 
+                 if (outputNode == null) continue;
+                 if (inputNode == null) continue;
                  graphData.LinkData.Add(new NodeLinkData
                  {
                      BaseNodeGuid = outputNode.GUID,
@@ -70,6 +74,7 @@ namespace Editor.Level_Editor
             }
 
             ClearGraph();
+            _graphView.GraphProperties = _levelGraphData.GraphProperties;
             CreateNodes();
             ConnectNodes();
         }
@@ -90,13 +95,16 @@ namespace Editor.Level_Editor
         {
             foreach (var nodeData in _levelGraphData.NodeData)
             {
-                var tempNode = (BaseNode)Activator.CreateInstance(System.Type.GetType($"Level_Editor.Windows.{nodeData.NodeType}") ?? throw new InvalidOperationException());
+                var tempNode = (BaseNode)Activator.CreateInstance(Type.GetType($"Editor.Level_Editor.Nodes.{nodeData.NodeType}, Assembly-CSharp-Editor") ?? throw new InvalidOperationException());
                 tempNode.GUID = nodeData.Guid;
                 tempNode.SetPosition(new Rect(nodeData.Position, _graphView.DefaultNodeSize));
                 tempNode.TagsRequired = nodeData.Tags;
                 tempNode.NumberOfRooms = nodeData.NumOutputs;
                 
+                tempNode.AddOutputPorts();
+                
                 _graphView.AddElement(tempNode);
+                tempNode.LoadValuesIntoFields();
             }
         }
         

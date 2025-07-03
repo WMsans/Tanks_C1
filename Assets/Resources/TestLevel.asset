@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   LinkData:
-  - BaseNodeGuid: d14431b3-43a2-4021-b367-f3e53906c11d
-    PortName: Out 0
-    TargetNodeGuid: 49e2e9ae-e84e-4669-865b-578d2d85ce6b
   - BaseNodeGuid: 1180eef6-5ab0-41a9-b3ff-69379a034934
     PortName: Out 0
     TargetNodeGuid: 00b56edd-8b3a-460b-9e5f-adfe16bba57f
@@ -31,6 +28,9 @@ MonoBehaviour:
   - BaseNodeGuid: 00b56edd-8b3a-460b-9e5f-adfe16bba57f
     PortName: Out 0
     TargetNodeGuid: cd5b2c7b-0c93-4d6d-9fe6-9dcedf5e8afb
+  - BaseNodeGuid: d14431b3-43a2-4021-b367-f3e53906c11d
+    PortName: Out 0
+    TargetNodeGuid: 49e2e9ae-e84e-4669-865b-578d2d85ce6b
   NodeData:
   - Guid: ebea017d-8103-4b5e-85c6-605f0fbb71bb
     NodeType: BattleNode
@@ -70,10 +70,11 @@ MonoBehaviour:
     NumOutputs: 0
   - Guid: d14431b3-43a2-4021-b367-f3e53906c11d
     NodeType: StartNode
-    Position: {x: 26, y: 200}
+    Position: {x: 100, y: 200}
     Tags:
     - Small
     NumOutputs: 1
   GraphProperties:
     EntryPointSwaps: 10
     RoomChangeAttempts: 5
+    StartPosition: {x: 0, y: 0, z: 0}

@@ -8,6 +8,7 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
     [SerializeField] private float coolDown;
     [Tooltip("Set this to the layer your ground is on for accurate targeting.")]
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private GameObject indicatorPrefab; // Add this line
 
     public float CoolDown => coolDown;
     public void OnAttack(TankAttackController controller)
@@ -20,7 +21,7 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
         if (rb == null)
         {
             Debug.LogError("Bullet Prefab is missing a Rigidbody component!");
-            bulletObject.SetActive(true); 
+            bulletObject.SetActive(true);
             return;
         }
 
@@ -45,10 +46,30 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
 
     public void OnEquip(TankAttackController controller)
     {
+        if (indicatorPrefab != null)
+        {
+            if(controller.indicatorInstance != null) Destroy(controller.indicatorInstance);
+            controller.indicatorInstance = Instantiate(indicatorPrefab, controller.FirePoint.position, Quaternion.identity, controller.FirePoint);
+            var indicator = controller.indicatorInstance.GetComponent<MortarIndicator>();
+            if (indicator != null)
+            {
+                indicator.groundMask = groundMask;
+                indicator.fireHeight = fireHeight;
+                var mortarBullet = bulletPrefab.GetComponent<MotarBulletBehaviour>();
+                if(mortarBullet != null)
+                {
+                    indicator.explosionRadius = mortarBullet.explosionRadius;
+                }
+            }
+        }
     }
 
     public void OnUnequip(TankAttackController controller)
     {
+        if (controller.indicatorInstance != null)
+        {
+            Destroy(controller.indicatorInstance);
+        }
     }
 
     private void CalculateAndApplyVelocity(Rigidbody rb, Vector3 startPosition, Vector3 targetPosition)

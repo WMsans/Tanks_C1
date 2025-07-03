@@ -10,7 +10,7 @@ public class MotarBulletBehaviour : MonoBehaviour, IPoolable
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask harmableLayer;
     [SerializeField] private float bulletTime = 10f;
-    [SerializeField] private float explosionRadius;
+    public float explosionRadius;
     private Coroutine _destroySelfCoroutine;
     void Awake()
     {

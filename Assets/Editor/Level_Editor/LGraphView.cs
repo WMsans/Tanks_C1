@@ -111,7 +111,7 @@ namespace Level_Editor
 
             _generatedRoomBounds = new List<Bounds>();
             var generatedNodes = new HashSet<BaseNode>();
-            TraverseAndGenerate(entryNode, Vector3.zero, Quaternion.identity, generatedNodes);
+            TraverseAndGenerate(entryNode, GraphProperties.StartPosition, Quaternion.identity, generatedNodes);
         }
 
         private bool TraverseAndGenerate(BaseNode nodeToPlace, Vector3 parentEntryPointPos, Quaternion parentEntryPointRot, HashSet<BaseNode> generatedNodes)

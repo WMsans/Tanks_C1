@@ -26,6 +26,7 @@ namespace Level_Editor
     {
         public int EntryPointSwaps = 10;
         public int RoomChangeAttempts = 5;
+        public Vector3 StartPosition = Vector3.zero;
     }
 
     public class LevelGraphData : ScriptableObject

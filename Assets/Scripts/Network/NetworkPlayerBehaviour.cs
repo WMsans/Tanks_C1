@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class NetworkPlayerBehaviour : NetworkBehaviour
 {
+    [SerializeField] private GameObject networkPlayerTankPrefab;
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
         {
             RegisterPlayerToLobbyListRpc(new RpcParams());
+
+            NetworkManager.Singleton.SceneManager.OnSceneEvent += RequestNewPlayerTank;
         }
     }
 
@@ -25,5 +28,22 @@ public class NetworkPlayerBehaviour : NetworkBehaviour
     private void UpdatePlayerListRpc(string newListText)
     {
         GameObject.Find("PlayerListText").GetComponent<TMP_Text>().text = newListText;
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void SpawnInNetworkedPlayerTankRpc(RpcParams rpcParams)
+    {
+        Debug.Log(networkPlayerTankPrefab.name);
+        var newTank = Instantiate(networkPlayerTankPrefab);
+        newTank.GetComponent<NetworkObject>().SpawnWithOwnership(rpcParams.Receive.SenderClientId);
+    }
+
+    private void RequestNewPlayerTank(SceneEvent sceneEvent)
+    {
+        
+        if (sceneEvent.SceneEventType == SceneEventType.LoadEventCompleted)
+        {
+            SpawnInNetworkedPlayerTankRpc(new RpcParams());
+        }
     }
 }

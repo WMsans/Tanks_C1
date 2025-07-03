@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -33,6 +34,14 @@ namespace Level_Editor
                 graphView.GraphProperties.RoomChangeAttempts = evt.newValue;
             });
             rootVisualElement.Add(roomChangeAttemptsField);
+            
+            var startPositionField = new Vector3Field("Start Position");
+            startPositionField.SetValueWithoutNotify(graphView.GraphProperties.StartPosition);
+            startPositionField.RegisterValueChangedCallback(evt =>
+            {
+                graphView.GraphProperties.StartPosition = evt.newValue;
+            });
+            rootVisualElement.Add(startPositionField);
         }
 
         public static void ShowWindow(LGraphView view)

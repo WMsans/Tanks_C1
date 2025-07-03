@@ -1,3 +1,4 @@
+using TrailsFX;
 using UnityEngine;
 
 public class TankDashState : TankBaseState
@@ -5,9 +6,23 @@ public class TankDashState : TankBaseState
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
     [SerializeField] private Transform shootPoint;
+    [Header("Effect")] 
+    [SerializeField] private TrailEffect trail;
 
     private float _currentRotationSpeed = 0f;
     private float _lastAttackTime;
+    public override void OnEnterState()
+    {
+        base.OnEnterState();
+        trail.active = true;
+    }
+
+    public override void OnExitState()
+    {
+        base.OnExitState();
+        trail.active = false;
+    }
+
     public override void OnFixedUpdateState()
     {
         HandlePosition();

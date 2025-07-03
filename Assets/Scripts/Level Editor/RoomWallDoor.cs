@@ -7,7 +7,6 @@ public class RoomWallDoor : MonoBehaviour, IDoor
     [SerializeField] private GameObject doorObj;
     public void OpenDoor()
     {
-        Debug.Log(transform.position);
         doorObj.SetActive(false);
     }
 

@@ -16,6 +16,6 @@ MonoBehaviour:
   rotSpeed: 3
   moveAccel: 1
   rotAccel: 1
-  dashAccel: 10
+  dashAccel: 15
   dashMoveSpeed: 30
-  dashDecel: 5
+  dashDecel: 7

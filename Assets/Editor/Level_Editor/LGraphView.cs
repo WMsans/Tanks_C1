@@ -163,6 +163,7 @@ namespace Level_Editor
                             _generatedRoomBounds.Add(newRoomBounds);
                             boundsAdded = true;
                         }
+                        if(randomEntryPoint.TryGetComponent<IDoor>(out var door)) door.OpenDoor();
 
                         var availableChildPorts = allEntryPoints.Where(e => e != randomEntryPoint).ToList();
                         var childGraphNodes = nodeToPlace.outputContainer.Children().Cast<Port>()
@@ -191,6 +192,7 @@ namespace Level_Editor
                                     if (TraverseAndGenerate(childNode, selectedPort.position, selectedPort.rotation, nodesForChildren))
                                     {
                                         childPlacedSuccessfully = true;
+                                        if(selectedPort.TryGetComponent<IDoor>(out door)) door.OpenDoor();
                                         availableChildPorts.Remove(selectedPort);
                                         break;
                                     }

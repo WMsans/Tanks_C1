@@ -32,12 +32,6 @@ MonoBehaviour:
     PortName: Out 0
     TargetNodeGuid: cd5b2c7b-0c93-4d6d-9fe6-9dcedf5e8afb
   NodeData:
-  - Guid: d14431b3-43a2-4021-b367-f3e53906c11d
-    NodeType: StartNode
-    Position: {x: 119.33333, y: 200}
-    Tags:
-    - Small
-    NumOutputs: 1
   - Guid: ebea017d-8103-4b5e-85c6-605f0fbb71bb
     NodeType: BattleNode
     Position: {x: 601.3334, y: 200}
@@ -74,6 +68,12 @@ MonoBehaviour:
     Tags:
     - Battle
     NumOutputs: 0
+  - Guid: d14431b3-43a2-4021-b367-f3e53906c11d
+    NodeType: StartNode
+    Position: {x: 26, y: 200}
+    Tags:
+    - Small
+    NumOutputs: 1
   GraphProperties:
     EntryPointSwaps: 10
     RoomChangeAttempts: 5

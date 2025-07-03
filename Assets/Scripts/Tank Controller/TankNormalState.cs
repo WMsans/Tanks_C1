@@ -5,7 +5,6 @@ public class TankNormalState : TankBaseState
 {
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
-    [SerializeField] private Transform shootPoint;
 
     private float _currentRotationSpeed = 0f;
     private float _lastAttackTime;
@@ -64,7 +63,7 @@ public class TankNormalState : TankBaseState
             if (CanShoot())
             {
                 _lastAttackTime = Time.time;
-                tankAttack.OnAttack(shootPoint);
+                tankAttack.OnAttack(attackController);
             }
         }
     }

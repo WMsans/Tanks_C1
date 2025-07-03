@@ -9,17 +9,17 @@ public abstract class TankBaseState : BaseState
     protected Rigidbody rb { get; private set; }
     protected InputSystemManager.InputInfo inputInfo { get; private set; }
     protected ITankAttack tankAttack { get; private set; }
-    private TankAttackController _attackController;
+    protected TankAttackController attackController { get; private set; }
     public override void OnEnterState()
     {
         rb = Owner.GetComponentInChildren<Rigidbody>();
-        _attackController = Owner.GetComponentInChildren<TankAttackController>();
-        tankAttack = _attackController.TankAttack;
+        attackController = Owner.GetComponentInChildren<TankAttackController>();
+        tankAttack = attackController.TankAttack;
     }
 
     protected void Update()
     {
         inputInfo = InputSystemManager.Instance.CurrentInputInfo;
-        if(_attackController) tankAttack = _attackController.TankAttack;
+        if(attackController) tankAttack = attackController.TankAttack;
     }
 }

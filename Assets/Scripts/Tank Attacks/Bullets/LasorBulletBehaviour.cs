@@ -52,7 +52,7 @@ public class LasorBulletBehaviour : MonoBehaviour, IPoolable
 
             if (Physics.Raycast(currentPosition, currentDirection, out var hit, maxDistance, obstacleLayer))
             {
-                if (Vector3.Distance(hit.point, currentPosition) < 1f)
+                if (Vector3.Distance(hit.point, currentPosition) < .5f)
                 {
                     points.Add(currentPosition + currentDirection * maxDistance);
                     break;

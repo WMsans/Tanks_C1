@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyFireState : EnemyBaseState
 {
-    [SerializeField] private Transform firePoint;
     [SerializeField] private float sightRadius = 5f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask wallLayer;
@@ -25,6 +24,7 @@ public class EnemyFireState : EnemyBaseState
         {
             Shoot();
             Owner.ChangeState(followState);
+            return;
         }
     }
 
@@ -34,7 +34,7 @@ public class EnemyFireState : EnemyBaseState
         {
             var angle = -115 + (i * 10);
             var direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-            var ray = new Ray(firePoint.position, direction);
+            var ray = new Ray(attackController.FirePoint.position, direction);
 
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, playerLayer | wallLayer))
             {
@@ -63,7 +63,7 @@ public class EnemyFireState : EnemyBaseState
 
     private void Shoot()
     {
-        tankAttack.OnAttack(firePoint);
+        tankAttack.OnAttack(attackController);
     }
 
     private bool IsBulletClose()

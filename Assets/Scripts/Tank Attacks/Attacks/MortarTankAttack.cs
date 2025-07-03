@@ -10,11 +10,11 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
     [SerializeField] private LayerMask groundMask;
 
     public float CoolDown => coolDown;
-    public void OnAttack(Transform shootPoint)
+    public void OnAttack(TankAttackController controller)
     {
         var bulletObject = PoolManager.instance.GetPooledObject(bulletPrefab);
-        bulletObject.transform.position = shootPoint.transform.position;
-        bulletObject.transform.rotation = shootPoint.transform.rotation;
+        bulletObject.transform.position = controller.FirePoint.transform.position;
+        bulletObject.transform.rotation = controller.FirePoint.transform.rotation;
 
         var rb = bulletObject.GetComponent<Rigidbody>();
         if (rb == null)
@@ -30,10 +30,10 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
         {
             var targetPosition = hitInfo.point;
-            CalculateAndApplyVelocity(rb, shootPoint.position, targetPosition);
+            CalculateAndApplyVelocity(rb, controller.FirePoint.transform.position, targetPosition);
 
             bulletObject.SetActive(true);
-            EffectManager.instance.PlayBulletSpark(shootPoint.position);
+            EffectManager.instance.PlayBulletSpark(controller.FirePoint.transform.position);
         }
         else
         {
@@ -41,6 +41,14 @@ public class MortarTankAttack : ScriptableObject, ITankAttack
             Debug.LogWarning("Mortar target not found on ground layer.");
             bulletObject.SetActive(false);
         }
+    }
+
+    public void OnEquip(TankAttackController controller)
+    {
+    }
+
+    public void OnUnequip(TankAttackController controller)
+    {
     }
 
     private void CalculateAndApplyVelocity(Rigidbody rb, Vector3 startPosition, Vector3 targetPosition)

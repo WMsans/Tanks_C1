@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11763130d115f434e9348f8c6b9fff3e, type: 3}
+  m_Script: {fileID: 11500000, guid: a85bf68dc53c486fa5279b071e577c1b, type: 3}
   m_Name: Lasor Tank Attack
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 6817467585643859953, guid: cb5f0dff4ec100e4d954dad50eca7d1f, type: 3}
-  firePower: 0
+  indicatorPrefab: {fileID: 5007724364146178014, guid: 495591ca65daa454e881d977bc672017, type: 3}
+  laserPrefab: {fileID: 6817467585643859953, guid: cb5f0dff4ec100e4d954dad50eca7d1f, type: 3}
+  coolDown: 0
+  laserWarningTime: 0.5

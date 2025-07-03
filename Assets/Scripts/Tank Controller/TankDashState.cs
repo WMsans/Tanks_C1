@@ -5,7 +5,6 @@ public class TankDashState : TankBaseState
 {
     [Header("Attack")] 
     [SerializeField] private Transform topRoot;
-    [SerializeField] private Transform shootPoint;
     [Header("Effect")] 
     [SerializeField] private TrailEffect trail;
 
@@ -90,7 +89,7 @@ public class TankDashState : TankBaseState
             if (CanShoot())
             {
                 _lastAttackTime = Time.time;
-                tankAttack.OnAttack(shootPoint);
+                tankAttack.OnAttack(attackController);
             }
         }
     }

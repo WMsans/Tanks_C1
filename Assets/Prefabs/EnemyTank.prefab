@@ -69,7 +69,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 42fd2a844415c9b449d69a9108fd91ee, type: 2}
-  firePoint: {fileID: 6507103731239605024}
   sightRadius: 5
   playerLayer:
     serializedVersion: 2
@@ -709,6 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialTankAttack: {fileID: 11400000, guid: 0d3754c78ac6a4a44b56fb832b1bf6fa, type: 2}
+  initialFirePoint: {fileID: 6507103731239605024}
 --- !u!114 &2958110135644446560
 MonoBehaviour:
   m_ObjectHideFlags: 0

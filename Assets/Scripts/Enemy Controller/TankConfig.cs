@@ -10,4 +10,8 @@ public class TankConfig : ScriptableObject
     public float rotSpeed = 2.0f; 
     public float moveAccel = 1;
     public float rotAccel = 1;
+
+    public float dashAccel = 10;
+    public float dashMoveSpeed = 30;
+    public float dashDecel = 4;
 }

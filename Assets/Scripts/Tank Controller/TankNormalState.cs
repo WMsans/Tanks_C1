@@ -47,6 +47,15 @@ public class TankNormalState : TankBaseState
     public override void OnUpdateState()
     {
         HandleAttack();
+        HandleDash();
+    }
+
+    private void HandleDash()
+    {
+        if (InputSystemManager.Instance.CurrentInputInfo.DashDown)
+        {
+            Owner.ChangeState(GetComponent<TankDashState>());
+        }
     }
     private void HandleAttack()
     {

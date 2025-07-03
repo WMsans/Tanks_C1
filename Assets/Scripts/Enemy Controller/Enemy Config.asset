@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Enemy Config
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rotSpeed: 2
+  rotSpeed: 3
   moveAccel: 1
   rotAccel: 1
+  dashAccel: 10
+  dashMoveSpeed: 30
+  dashDecel: 5

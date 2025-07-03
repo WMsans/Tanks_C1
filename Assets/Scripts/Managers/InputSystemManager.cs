@@ -12,6 +12,9 @@ public class InputSystemManager : MonoSingleton<InputSystemManager>
         public bool AttackDown;
         public bool AttackUp;
         public bool AttackHold;
+        public bool DashDown;
+        public bool DashUp;
+        public bool DashHold;
     }
     private InputSystem_Actions inputActions;
     private float moveInput;
@@ -54,6 +57,9 @@ public class InputSystemManager : MonoSingleton<InputSystemManager>
             AttackDown = inputActions.Player.Attack.WasPressedThisFrame(),
             AttackUp = inputActions.Player.Attack.WasReleasedThisFrame(),
             AttackHold = inputActions.Player.Attack.IsPressed(),
+            DashDown = inputActions.Player.Sprint.WasPressedThisFrame(),
+            DashUp = inputActions.Player.Sprint.WasReleasedThisFrame(),
+            DashHold = inputActions.Player.Sprint.IsPressed(),
         };
         CurrentInputInfo = inputs;
     }
